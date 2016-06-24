@@ -1,12 +1,12 @@
 #ant specific
-dist/
-build/
+ticket/dist/
+ticket/build/
 
 #netbeans specific
 core
-nbproject/*
-!nbproject/project.properties
-!nbproject/project.xml
+ticket/nbproject/*
+!ticket/nbproject/project.properties
+!ticket/nbproject/project.xml
 
 #java specific
 *.class
