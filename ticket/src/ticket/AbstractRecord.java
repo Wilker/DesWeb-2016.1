@@ -9,11 +9,11 @@ package ticket;
  *
  * @author Leo
  */
-public abstract class AbstractRecord 
+public abstract class AbstractRecord
 {
     private int id;
     
-    public AbstractRecord()
+    AbstractRecord()
     {
         this.id = -1;
     }
@@ -28,6 +28,18 @@ public abstract class AbstractRecord
         this.id = id;
     }
     
-    public abstract void save();
-    public abstract void delete();
+    abstract DBSimulator getDB();
+    
+    public void save()
+    {
+        if(this.getId() == -1)
+            this.getDB().insert(this);
+        else
+            this.getDB().update(this);
+    }
+    
+    public void delete()
+    {
+        this.getDB().delete(this);
+    }
 }

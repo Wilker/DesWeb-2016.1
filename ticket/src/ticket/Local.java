@@ -6,83 +6,54 @@
 
 package ticket;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 /**
  *
  * @author renan.vieira
  */
-public class Local {
+public class Local extends AbstractRecord
+{
+    private static DBSimulator<Local> db = new DBSimulator<>();
     
-    private int localid;
-    private String descricao;
+    private String nome;
     private String logradouro;
     private String numero;
     private String bairro;
     private String refencia;
     private String complemento;
     private String cep;
-    private Cidade cidade;
+    private String cidade;
     
-    public int getLocalId(){
-       return localid;
+    public Local(String nome)
+    {
+        this.nome = nome;
     }
-    public void setLocalId(int v){
-       localid = v;
+
+    public String getNome()
+    {
+        return nome;
     }
-    
-    public String getDescricao(){
-       return descricao;
-    }
-    public void setDescricao(String v){
-       descricao = v;
-    }
-    
-    public String getLogradouro(){
-       return logradouro;
-    }
-    public void setLogradouro(String v){
-       logradouro = v;
+
+    @Override
+    DBSimulator getDB()
+    {
+        return Local.db;
     }
     
-    public String getNumero(){
-       return numero;
+    public static Local getById(int id)
+    {
+        return Local.db.getById(id);
     }
-    public void setNumero(String v){
-       numero = v;
+
+    public static List<Local> selectAll()
+    {
+        return Local.db.selectAll();
     }
-    
-    public String getBairro(){
-       return bairro;
+
+    public static List<Local> where(Predicate<Local> clause)
+    {
+        return Local.db.where(clause);
     }
-    public void setBairro(String v){
-       bairro = v;
-    }
-    
-    public String getRefencia(){
-       return refencia;
-    }
-    public void setRefencia(String v){
-       refencia = v;
-    }
-    
-    public String getComplemento(){
-       return complemento;
-    }
-    public void setComplemento(String v){
-       complemento = v;
-    }
-    
-    public String getCEP(){
-       return cep;
-    }
-    public void setCEP(String v){
-       cep = v;
-    }
-    
-    public Cidade getUF(){
-       return cidade;
-    }
-    public void setUF(Cidade v){
-       cidade = v;
-    }
-    
 }

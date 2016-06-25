@@ -6,6 +6,7 @@
 
 package ticket;
 
+import java.util.Date;
 import java.util.List;
 /**
  *
@@ -17,17 +18,23 @@ public class Ticket {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Produto p1 = new Produto("Bruce Springsteen", "Ingressos Bruce Springsteen", null);
-        p1.save();
-        Produto p2 = new Produto("Bob Marley", "Ingressos Bob Marley", null);
-        p2.save();
-        Produto p3 = new Produto("Phil Collins", "Ingressos Phil Collins", null);
-        p3.save();
         
-        List<Produto> p = Produto.selectAll();
-        Produto pp = Produto.getById(2);
-        List<Produto> ppp = Produto.where( var -> var.getTitulo().equalsIgnoreCase("Phil Collins") || var.getId() == 3 );
-        p2.delete();
+        Categoria show = new Categoria("Show");
+        show.save();
+        
+        Local vivoRio = new Local("Vivo Rio");
+        vivoRio.save();
+        
+        Evento showMassacration = new Evento("Show Massacration", new Date(), vivoRio, show);
+        showMassacration.save();
+        
+        Produto ingressoMassacrationPistaPremium = new Produto("P. Premium Massacration", "Ingresso pista premium Massacration", showMassacration);
+        ingressoMassacrationPistaPremium.save();
+        Produto ingressoMassacrationPistaComum = new Produto("P. Comum Massacration", "Ingresso pista simples Massacration", showMassacration);
+        ingressoMassacrationPistaComum.save();
+        
+        List<Produto> todosMassacration = Produto.where(p -> p.getEvento().equals(showMassacration));
+        
     }
     
 }

@@ -26,7 +26,13 @@ public final class Produto extends AbstractRecord
         super();
         this.titulo = titulo;
         this.descricao = descricao;
-        //this.evento = evento.getId();
+        this.evento = evento.getId();
+    }
+
+    @Override
+    DBSimulator<Produto> getDB()
+    {
+        return Produto.db;
     }
 
     public String getTitulo()
@@ -39,24 +45,9 @@ public final class Produto extends AbstractRecord
         return descricao;
     }
 
-    public int getEvento()
+    public Evento getEvento()
     {
         return Evento.getById(this.evento);
-    }
-
-    @Override
-    public void save()
-    {
-        if(this.getId() == -1)
-            Produto.db.insert(this);
-        else
-            Produto.db.update(this);
-    }
-
-    @Override
-    public void delete()
-    {
-        Produto.db.delete(this);
     }
 
     public static Produto getById(int id)

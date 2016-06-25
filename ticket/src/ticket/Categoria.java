@@ -6,10 +6,43 @@
 
 package ticket;
 
+import java.util.List;
+import java.util.function.Predicate;
+
 /**
  *
  * @author renan.vieira
  */
-public class Categoria {
+public class Categoria extends AbstractRecord
+{
+    private static DBSimulator<Categoria> db = new DBSimulator<>();
+    
+    private String nome;
+    
+    public Categoria(String nome)
+    {
+        this.nome = nome;
+    }
+
+    @Override
+    DBSimulator getDB()
+    {
+        return Categoria.db;
+    }
+    
+    public static Categoria getById(int id)
+    {
+        return Categoria.db.getById(id);
+    }
+
+    public static List<Categoria> selectAll()
+    {
+        return Categoria.db.selectAll();
+    }
+
+    public static List<Categoria> where(Predicate<Categoria> clause)
+    {
+        return Categoria.db.where(clause);
+    }
     
 }

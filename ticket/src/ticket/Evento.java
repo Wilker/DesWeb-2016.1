@@ -7,6 +7,8 @@
 package ticket;
 
 import java.util.Date;
+import java.util.List;
+import java.util.function.Predicate;
 
 /**
  *
@@ -14,62 +16,60 @@ import java.util.Date;
  */
 public class Evento extends AbstractRecord
 {
-    private static DBSimulator<Evento> db;
+    private static DBSimulator<Evento> db = new DBSimulator<>();
+    
     private String descricao;
-    private Date data;
-    private Local local;
-    private Categoria categoria;
-    
-    public int getEventoId(){
-        return eventoid;
+    private Date   data;
+    private int    local;
+    private int    categoria;
+            
+    public Evento(String descricao, Date data, Local local, Categoria categoria)
+    {
+        this.descricao = descricao;
+        this.data = data;
+        this.local = local.getId();
+        this.categoria = categoria.getId();
     }
-    public void setEventoId(int v){
-        eventoid = v;
-    }
-    
-    public String getDescricao(){
+
+    public String getDescricao()
+    {
         return descricao;
     }
-    public void setDescricao(String v){
-        descricao = v;
-    }
-    
-    public Date getData(){
+
+    public Date getData()
+    {
         return data;
     }
-    public void setData(Date v){
-        data = v;
+
+    public Local getLocal()
+    {
+        return Local.getById(local);
     }
-    
-    public Local getLocal(){
-        return local;
-    }
-    public void setLocal(Local v){
-        local = v;
-    }
-    
-    public Categoria getCategoria(){
-        return categoria;
-    }
-    public void setCategoria(Categoria v){
-        categoria = v;
+
+    public Categoria getCategoria()
+    {
+        return Categoria.getById(categoria);
     }
 
     @Override
-    public void save()
+    DBSimulator getDB()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void delete()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Evento.db;
     }
     
-    public static int getById(int evento)
+    public static Evento getById(int id)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Evento.db.getById(id);
+    }
+
+    public static List<Evento> selectAll()
+    {
+        return Evento.db.selectAll();
+    }
+
+    public static List<Evento> where(Predicate<Evento> clause)
+    {
+        return Evento.db.where(clause);
     }
     
 }
