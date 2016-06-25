@@ -6,46 +6,67 @@
 
 package ticket;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 /**
  *
  * @author renan.vieira
  */
-public class Produto {
+public class Produto extends AbstractRecord
+{
+    private static List<Produto> produtos = new ArrayList<>();
+    private static int           id       = 1;
     
-    private int produtoid;
     private String titulo;
     private String descricao;
     private Evento evento;
-        
-    public int getProdutoId(){
-       return produtoid;
+
+    public Produto(String titulo, String descricao)
+    {
+        this.titulo = titulo;
+        this.descricao = descricao;
     }
-    public void setProdutoId(int v){
-       produtoid = v;
+
+    public String getTitulo()
+    {
+        return titulo;
     }
-    
-    public String getTitulo(){
-       return titulo;
+
+    public String getDescricao()
+    {
+        return descricao;
     }
-    public void setTitulo(String v){
-       titulo = v;
+
+    @Override
+    public void save()
+    {
+        super.setId(Produto.id);
+        Produto.id += 1;
+        Produto.produtos.add(this);
     }
-    
-    public String getDescricao(){
-       return descricao;
+
+    @Override
+    public void delete()
+    {
+        Produto.produtos.remove(this);
     }
-    public void setDescricao(String v){
-       descricao = v;
+
+    public static Produto getById(int id)
+    {
+        return Produto.produtos.stream().filter(e -> e.getId() == id).findFirst().get();
     }
-    
-    public Evento getEvento(){
-       return evento;
+
+    public static List<Produto> selectAll()
+    {
+        return Produto.produtos;
     }
-    public void setEvento(Evento v){
-       evento = v;
+
+    public static List<Produto> where(Predicate<Produto> clause)
+    {
+        return Produto.produtos.stream().filter(clause).collect(Collectors.<Produto>toList());
     }
-    
-    
-    
-    
+
 }
