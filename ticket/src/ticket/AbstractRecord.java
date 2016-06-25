@@ -13,6 +13,11 @@ public abstract class AbstractRecord
 {
     private int id;
     
+    public AbstractRecord()
+    {
+        this.id = -1;
+    }
+    
     public final int getId()
     {
         return this.id;

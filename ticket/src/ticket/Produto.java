@@ -6,28 +6,27 @@
 
 package ticket;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 /**
  *
  * @author renan.vieira
  */
-public class Produto extends AbstractRecord
+public final class Produto extends AbstractRecord
 {
-    private static List<Produto> produtos = new ArrayList<>();
-    private static int           id       = 1;
+    private static DBSimulator<Produto> db = new DBSimulator<>();
     
     private String titulo;
     private String descricao;
-    private Evento evento;
+    private int    evento;
 
-    public Produto(String titulo, String descricao)
+    public Produto(String titulo, String descricao, Evento evento)
     {
+        super();
         this.titulo = titulo;
         this.descricao = descricao;
+        //this.evento = evento.getId();
     }
 
     public String getTitulo()
@@ -40,33 +39,38 @@ public class Produto extends AbstractRecord
         return descricao;
     }
 
+    public int getEvento()
+    {
+        return Evento.getById(this.evento);
+    }
+
     @Override
     public void save()
     {
-        super.setId(Produto.id);
-        Produto.id += 1;
-        Produto.produtos.add(this);
+        if(this.getId() == -1)
+            Produto.db.insert(this);
+        else
+            Produto.db.update(this);
     }
 
     @Override
     public void delete()
     {
-        Produto.produtos.remove(this);
+        Produto.db.delete(this);
     }
 
     public static Produto getById(int id)
     {
-        return Produto.produtos.stream().filter(e -> e.getId() == id).findFirst().get();
+        return Produto.db.getById(id);
     }
 
     public static List<Produto> selectAll()
     {
-        return Produto.produtos;
+        return Produto.db.selectAll();
     }
 
     public static List<Produto> where(Predicate<Produto> clause)
     {
-        return Produto.produtos.stream().filter(clause).collect(Collectors.<Produto>toList());
+        return Produto.db.where(clause);
     }
-
 }

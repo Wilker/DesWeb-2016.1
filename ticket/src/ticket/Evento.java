@@ -12,9 +12,9 @@ import java.util.Date;
  *
  * @author renan.vieira
  */
-public class Evento {
-    
-    private int eventoid;
+public class Evento extends AbstractRecord
+{
+    private static DBSimulator<Evento> db;
     private String descricao;
     private Date data;
     private Local local;
@@ -54,6 +54,22 @@ public class Evento {
     public void setCategoria(Categoria v){
         categoria = v;
     }
+
+    @Override
+    public void save()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
+    public static int getById(int evento)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
