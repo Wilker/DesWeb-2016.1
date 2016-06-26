@@ -30,7 +30,7 @@ public abstract class AbstractRecord
     
     abstract DBSimulator getDB();
     
-    public void save()
+    public final void save()
     {
         if(this.getId() == -1)
             this.getDB().insert(this);
@@ -38,7 +38,7 @@ public abstract class AbstractRecord
             this.getDB().update(this);
     }
     
-    public void delete()
+    public final void delete()
     {
         this.getDB().delete(this);
     }

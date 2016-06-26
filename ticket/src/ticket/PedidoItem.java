@@ -12,18 +12,10 @@ package ticket;
  */
 public class PedidoItem {
     
-    private int pedidoitemid;
     private Produto produto;
     private int quantidade;
     private long valorvendido;
     private long desconto;
-    
-    public int getPedidoItemId(){
-       return pedidoitemid;
-    }
-    public void setPedidoItemId(int v){
-       pedidoitemid = v;
-    }
     
     public Produto getProduto(){
        return produto;

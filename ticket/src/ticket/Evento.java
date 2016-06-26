@@ -25,20 +25,22 @@ public class Evento extends AbstractRecord
             
     public Evento(String descricao, Date data, Local local, Categoria categoria)
     {
+        super();
         this.descricao = descricao;
         this.data = data;
         this.local = local.getId();
         this.categoria = categoria.getId();
     }
-
+    
+    // <editor-fold desc="Getters" defaultstate="collapsed">
     public String getDescricao()
     {
-        return descricao;
+        return this.descricao;
     }
 
     public Date getData()
     {
-        return data;
+        return this.data;
     }
 
     public Local getLocal()
@@ -50,6 +52,7 @@ public class Evento extends AbstractRecord
     {
         return Categoria.getById(categoria);
     }
+    // </editor-fold>
 
     @Override
     DBSimulator getDB()

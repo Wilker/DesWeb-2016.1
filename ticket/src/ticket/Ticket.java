@@ -34,6 +34,8 @@ public class Ticket {
         ingressoMassacrationPistaComum.save();
         
         List<Produto> todosMassacration = Produto.where(p -> p.getEvento().equals(showMassacration));
+        ingressoMassacrationPistaPremium.delete();
+        todosMassacration = Produto.where(p -> p.getEvento().equals(showMassacration));
         
     }
     

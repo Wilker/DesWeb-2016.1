@@ -21,9 +21,17 @@ public class Categoria extends AbstractRecord
     
     public Categoria(String nome)
     {
+        super();
         this.nome = nome;
     }
 
+    // <editor-fold desc="Getters" defaultstate="collapsed">
+    public String getNome()
+    {
+        return nome;
+    }
+    // </editor-fold>
+    
     @Override
     DBSimulator getDB()
     {
@@ -44,5 +52,4 @@ public class Categoria extends AbstractRecord
     {
         return Categoria.db.where(clause);
     }
-    
 }

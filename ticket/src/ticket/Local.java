@@ -28,13 +28,16 @@ public class Local extends AbstractRecord
     
     public Local(String nome)
     {
+        super();
         this.nome = nome;
     }
-
+    
+    // <editor-fold desc="Getters" defaultstate="collapsed">
     public String getNome()
     {
         return nome;
     }
+    // </editor-fold>
 
     @Override
     DBSimulator getDB()

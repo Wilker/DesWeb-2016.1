@@ -29,12 +29,6 @@ public final class Produto extends AbstractRecord
         this.evento = evento.getId();
     }
 
-    @Override
-    DBSimulator<Produto> getDB()
-    {
-        return Produto.db;
-    }
-
     public String getTitulo()
     {
         return titulo;
@@ -50,6 +44,12 @@ public final class Produto extends AbstractRecord
         return Evento.getById(this.evento);
     }
 
+    @Override
+    DBSimulator<Produto> getDB()
+    {
+        return Produto.db;
+    }
+    
     public static Produto getById(int id)
     {
         return Produto.db.getById(id);
