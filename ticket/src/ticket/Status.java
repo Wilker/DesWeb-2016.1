@@ -10,16 +10,16 @@ package ticket;
  *
  * @author renan.vieira
  */
-public class Estatus {
+public class Status {
     
-    private int estatusid;
+    private int statusId;
     private String descricao;
 
-    public int getEstatusId(){
-       return estatusid;
+    public int getStatusId(){
+       return statusId;
     }
-    public void setEstatusId(int v){
-       estatusid = v;
+    public void setStatusId(int v){
+       statusId = v;
     }
     
     public String getDescricao(){

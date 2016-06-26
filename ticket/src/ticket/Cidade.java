@@ -12,15 +12,15 @@ package ticket;
  */
 public class Cidade {
     
-    private int cidadeid;
+    private int cidadeId;
     private String nome;
     private UF uf;
     
     public int getCidadeId(){
-       return cidadeid;
+       return cidadeId;
     }
     public void setCidadeId(int v){
-       cidadeid = v;
+       cidadeId = v;
     }
     
     public String getNome(){
