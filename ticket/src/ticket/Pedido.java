@@ -17,24 +17,24 @@ import java.util.List;
  */
 public class Pedido {
     
-    private int pedidoid;
-    private Date datahora;
+    private int pedidoId;
+    private Date dataHora;
     private Usuario usuario;
-    private List<PedidoItem> lstiten;
-    private List<EstatusPedido> lstestatus;
+    private List<PedidoItem> lstItem;
+    private List<StatusPedido> lstStatus;
     
     public int getPedidoId(){
-        return pedidoid;
+        return pedidoId;
     }
     public void setPedidoId(int v){
-        pedidoid = v;
+        pedidoId = v;
     }
     
     public Date getDataHora(){
-        return datahora;
+        return dataHora;
     }
     public void setDataHora(Date v){
-        datahora = v;
+        dataHora = v;
     }
     
     public Usuario getUsuario(){
@@ -45,46 +45,46 @@ public class Pedido {
     }
     
     public List<PedidoItem> getItens(){
-        return lstiten;
+        return lstItem;
     }
     
     public void AdicionaItem(PedidoItem v){
         boolean achou = false;
         
-        if(lstiten == null){
-           lstiten = new ArrayList<>();
+        if(lstItem == null){
+           lstItem = new ArrayList<>();
         }
         
         /* incrementando a quantidade caso tente inserir o mesmo produto no pedido   */
-        for(PedidoItem i : lstiten){
-            if(i.getProduto().getProdutoId() == v.getPedidoItemId()){
-               i.setQuantidade(i.getQuantidade() + v.getQuantidade());
-               achou =  true;
-            }
-        }
+//        for(PedidoItem i : lstItem){
+//            if(i.getProduto().getProdutoId() == v.getPedidoItemId()){
+//               i.setQuantidade(i.getQuantidade() + v.getQuantidade());
+//               achou =  true;
+//            }
+//        }
         
         if(!achou){
-           lstiten.add(v);
+           lstItem.add(v);
         }
     }
     
-    public List<EstatusPedido> getEstatus(){
-        return lstestatus;
+    public List<StatusPedido> getStatus(){
+        return lstStatus;
     }
     
-    public EstatusPedido getEstatusAtual(){
-        if(lstestatus != null){
-           return lstestatus.get(lstestatus.size() - 1);
+    public StatusPedido getStatusAtual(){
+        if(lstStatus != null){
+           return lstStatus.get(lstStatus.size() - 1);
         }else{
           return null;
         }
     }
     
-    public void AdicionaEstatus(EstatusPedido v){
-        if(lstestatus == null){
-            lstestatus = new ArrayList<>();  
+    public void AdicionaStatus(StatusPedido v){
+        if(lstStatus == null){
+            lstStatus = new ArrayList<>();  
         }
-        lstestatus.add(v);
+        lstStatus.add(v);
     }
     
     
