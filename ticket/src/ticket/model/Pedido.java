@@ -3,90 +3,71 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package ticket.model;
 
-package ticket;
-
-
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Predicate;
+import ticket.activerecord.AbstractRecord;
+import ticket.activerecord.DBSimulator;
 
 /**
  *
  * @author renan.vieira
  */
-public class Pedido {
+public class Pedido extends AbstractRecord
+{
+    private static DBSimulator<Pedido> db = new DBSimulator<>();
     
-    private int pedidoId;
+    private int  usuario;
     private Date dataHora;
-    private Usuario usuario;
-    private List<PedidoItem> lstItem;
-    private List<StatusPedido> lstStatus;
     
-    public int getPedidoId(){
-        return pedidoId;
-    }
-    public void setPedidoId(int v){
-        pedidoId = v;
+    public Pedido(Usuario usuario, Date dataHora)
+    {
+        this.usuario = usuario.getId();
+        this.dataHora = dataHora;
     }
     
-    public Date getDataHora(){
-        return dataHora;
-    }
-    public void setDataHora(Date v){
-        dataHora = v;
-    }
-    
-    public Usuario getUsuario(){
-        return usuario;
-    }
-    public void setUsuario(Usuario v){
-        usuario = v;
+    // <editor-fold desc="Getters" defaultstate="collapsed">
+    public Usuario getUsuario()
+    {
+        return Usuario.getById(usuario);
     }
     
-    public List<PedidoItem> getItens(){
-        return lstItem;
+    public Date getDataHora()
+    {
+        return this.dataHora;
     }
     
-    public void AdicionaItem(PedidoItem v){
-        boolean achou = false;
-        
-        if(lstItem == null){
-           lstItem = new ArrayList<>();
-        }
-        
-        /* incrementando a quantidade caso tente inserir o mesmo produto no pedido   */
-//        for(PedidoItem i : lstItem){
-//            if(i.getProduto().getProdutoId() == v.getPedidoItemId()){
-//               i.setQuantidade(i.getQuantidade() + v.getQuantidade());
-//               achou =  true;
-//            }
-//        }
-        
-        if(!achou){
-           lstItem.add(v);
-        }
+    public List<PedidoItem> getPedidoItens()
+    {
+        return PedidoItem.where(pedidoItem -> pedidoItem.getPedido().equals(this));
     }
     
-    public List<StatusPedido> getStatus(){
-        return lstStatus;
+    public double getValorTotal()
+    {
+        return getPedidoItens().stream().map(PedidoItem::getValorTotal).reduce(0.0, (a, b) -> a + b);
+    }
+    // </editor-fold>
+
+    @Override
+    protected DBSimulator getDB()
+    {
+        return Pedido.db;
     }
     
-    public StatusPedido getStatusAtual(){
-        if(lstStatus != null){
-           return lstStatus.get(lstStatus.size() - 1);
-        }else{
-          return null;
-        }
+    public static Pedido getById(int id) 
+    {
+        return Pedido.db.getById(id);
     }
-    
-    public void AdicionaStatus(StatusPedido v){
-        if(lstStatus == null){
-            lstStatus = new ArrayList<>();  
-        }
-        lstStatus.add(v);
+
+    public static List<Pedido> selectAll() 
+    {
+        return Pedido.db.selectAll();
     }
-    
-    
-    
+
+    public static List<Pedido> where(Predicate<Pedido> clause) 
+    {
+        return Pedido.db.where(clause);
+    }
 }

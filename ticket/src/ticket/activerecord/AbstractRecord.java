@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ticket;
+package ticket.activerecord;
 
 /**
  *
@@ -13,7 +13,7 @@ public abstract class AbstractRecord
 {
     private int id;
     
-    AbstractRecord()
+    public AbstractRecord()
     {
         this.id = -1;
     }
@@ -28,7 +28,7 @@ public abstract class AbstractRecord
         this.id = id;
     }
     
-    abstract DBSimulator getDB();
+    protected abstract DBSimulator getDB();
     
     public final void save()
     {

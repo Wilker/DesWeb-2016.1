@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 
-package ticket;
+package ticket.model;
 
 import java.util.List;
 import java.util.function.Predicate;
+import ticket.activerecord.AbstractRecord;
+import ticket.activerecord.DBSimulator;
 
 /**
  *
@@ -20,15 +22,20 @@ public final class Produto extends AbstractRecord
     private String titulo;
     private String descricao;
     private int    evento;
+    private double valorProduto;
+    private int    quantidadeItens;
 
-    public Produto(String titulo, String descricao, Evento evento)
+    public Produto(String titulo, String descricao, Evento evento, double valorProduto, int quantidadeItens)
     {
         super();
         this.titulo = titulo;
         this.descricao = descricao;
         this.evento = evento.getId();
+        this.valorProduto = valorProduto;
+        this.quantidadeItens = quantidadeItens;
     }
 
+    // <editor-fold desc="Getters" defaultstate="collapsed">
     public String getTitulo()
     {
         return titulo;
@@ -44,8 +51,19 @@ public final class Produto extends AbstractRecord
         return Evento.getById(this.evento);
     }
 
+    public double getValorProduto()
+    {
+        return valorProduto;
+    }
+
+    public int getQuantidadeItens()
+    {
+        return quantidadeItens;
+    }
+    //</editor-fold>
+    
     @Override
-    DBSimulator<Produto> getDB()
+    protected DBSimulator<Produto> getDB()
     {
         return Produto.db;
     }

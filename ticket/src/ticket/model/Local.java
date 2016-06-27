@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 
-package ticket;
+package ticket.model;
 
 import java.util.List;
 import java.util.function.Predicate;
+import ticket.activerecord.AbstractRecord;
+import ticket.activerecord.DBSimulator;
 
 /**
  *
@@ -40,7 +42,7 @@ public class Local extends AbstractRecord
     // </editor-fold>
 
     @Override
-    DBSimulator getDB()
+    protected DBSimulator getDB()
     {
         return Local.db;
     }

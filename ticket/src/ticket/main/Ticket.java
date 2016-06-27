@@ -4,8 +4,12 @@
  * and open the template in the editor.
  */
 
-package ticket;
+package ticket.main;
 
+import ticket.model.Categoria;
+import ticket.model.Evento;
+import ticket.model.Local;
+import ticket.model.Produto;
 import java.util.Date;
 import java.util.List;
 /**
@@ -28,9 +32,9 @@ public class Ticket {
         Evento showMassacration = new Evento("Show Massacration", new Date(), vivoRio, show);
         showMassacration.save();
         
-        Produto ingressoMassacrationPistaPremium = new Produto("P. Premium Massacration", "Ingresso pista premium Massacration", showMassacration);
+        Produto ingressoMassacrationPistaPremium = new Produto("P. Premium Massacration", "Ingresso pista premium Massacration", showMassacration, 100.0, 10);
         ingressoMassacrationPistaPremium.save();
-        Produto ingressoMassacrationPistaComum = new Produto("P. Comum Massacration", "Ingresso pista simples Massacration", showMassacration);
+        Produto ingressoMassacrationPistaComum = new Produto("P. Comum Massacration", "Ingresso pista simples Massacration", showMassacration, 50.0, 100);
         ingressoMassacrationPistaComum.save();
         
         List<Produto> todosMassacration = Produto.where(p -> p.getEvento().equals(showMassacration));
