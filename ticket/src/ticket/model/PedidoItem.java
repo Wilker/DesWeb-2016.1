@@ -98,4 +98,18 @@ public class PedidoItem extends AbstractRecord
     {
         return PedidoItem.db.where(clause);
     }
+    
+    @Override
+    public String toString()
+    {
+        return String.format("%s"
+                + "ProdutoID: %d\n"
+                + "PedidoID: %d\n"
+                + "Quantidade: %d\n"
+                + "Valor vendido: %f\n"
+                + "Desconto: %f\n"
+                + "Valor total: %f", super.toString(), this.getProduto().getId(),
+                this.getPedido().getId(), this.getQuantidade(), this.getValorVendido(),
+                this.getDesconto(), this.getValorTotal());
+    }
 }

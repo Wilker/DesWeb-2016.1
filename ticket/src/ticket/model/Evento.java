@@ -34,7 +34,7 @@ public class Evento extends AbstractRecord
         this.categoria = categoria.getId();
     }
     
-    // <editor-fold desc="Getters" defaultstate="collapsed">
+    // <editor-fold desc="Getters e Setters" defaultstate="collapsed">
     public String getDescricao()
     {
         return this.descricao;
@@ -53,6 +53,26 @@ public class Evento extends AbstractRecord
     public Categoria getCategoria()
     {
         return Categoria.getById(categoria);
+    }
+
+    public void setDescricao(String descricao)
+    {
+        this.descricao = descricao;
+    }
+
+    public void setData(Date data)
+    {
+        this.data = data;
+    }
+
+    public void setLocal(Local local)
+    {
+        this.local = local.getId();
+    }
+
+    public void setCategoria(Categoria categoria)
+    {
+        this.categoria = categoria.getId();
     }
     // </editor-fold>
 
@@ -77,4 +97,14 @@ public class Evento extends AbstractRecord
         return Evento.db.where(clause);
     }
     
+    @Override
+    public String toString()
+    {
+        return String.format("%s"
+                + "Descrição: %s\n"
+                + "Data: %s\n"
+                + "Local -> \n{\n%s}\n"
+                + "Categoria -> \n{\n%s}\n", super.toString(), this.getDescricao(), 
+                this.getData(), this.getLocal(), this.getCategoria());
+    }
 }

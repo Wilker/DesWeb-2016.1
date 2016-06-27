@@ -21,14 +21,12 @@ public class Pagamento extends AbstractRecord
     private static DBSimulator<Pagamento> db = new DBSimulator<>();
     
     private int    pedido;
-    private String numeroCC;
     private double valorCobrado;
     private String codFaturamento;
     
-    public Pagamento(Pedido pedido, String numeroCC)
+    public Pagamento(Pedido pedido)
     {
         this.pedido = pedido.getId();
-        this.numeroCC = numeroCC;
         this.valorCobrado = pedido.getValorTotal();
         this.codFaturamento = null;
     }
@@ -37,11 +35,6 @@ public class Pagamento extends AbstractRecord
     public Pedido getPedido()
     {
         return Pedido.getById(pedido);
-    }
-    
-    public String getNumeroCC()
-    {
-        return numeroCC;
     }
 
     public double getValorCobrado()
@@ -55,9 +48,9 @@ public class Pagamento extends AbstractRecord
     }
     // </editor-fold>
     
-    public boolean Faturar(APICartaoDeCredito ccProvider, String senha)
+    public boolean Faturar(APICartaoDeCredito ccProvider, String nome, String numeroCC, String validade, String codSegurança)
     {
-        APICartaoDeCredito.Resultado resultado = ccProvider.faturar(numeroCC, senha, this.valorCobrado);
+        APICartaoDeCredito.Resultado resultado = ccProvider.faturar(nome, numeroCC, validade, codSegurança, this.valorCobrado);
         
         if(resultado.getResultado() == APICartaoDeCredito.CodResultado.SUCESSO)
         {
@@ -95,5 +88,13 @@ public class Pagamento extends AbstractRecord
     public static List<Pagamento> where(Predicate<Pagamento> clause) 
     {
         return Pagamento.db.where(clause);
+    }
+    
+    @Override
+    public String toString()
+    {
+        return String.format("%s"
+                + "Pedido -> \n{\n%s}\n"
+                + "Código de Faturamento: %s\n", super.toString(), this.getPedido(), this.getCodFaturamento());
     }
 }

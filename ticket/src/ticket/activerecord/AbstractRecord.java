@@ -42,4 +42,10 @@ public abstract class AbstractRecord
     {
         this.getDB().delete(this);
     }
+    
+    @Override
+    public String toString()
+    {
+        return String.format("id: %s\n", this.getId());
+    }
 }

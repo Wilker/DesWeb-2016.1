@@ -44,6 +44,11 @@ public class Usuario extends AbstractRecord
     {
         return senha;
     }
+    
+    public List<Pedido> getPedidos()
+    {
+        return Pedido.where(pedido -> pedido.getUsuario().equals(this));
+    }
     // </editor-fold>
 
     @Override
@@ -65,5 +70,15 @@ public class Usuario extends AbstractRecord
     public static List<Usuario> where(Predicate<Usuario> clause) 
     {
         return Usuario.db.where(clause);
+    }
+    
+    @Override
+    public String toString()
+    {
+        return String.format("%s"
+                + "Nome: %s\n"
+                + "Email: %s\n"
+                + "Senha: %s\n", super.toString(), this.getNome(), this.getEmail(),
+                this.getSenha());
     }
 }

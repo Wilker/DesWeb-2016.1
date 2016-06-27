@@ -27,10 +27,15 @@ public class Categoria extends AbstractRecord
         this.nome = nome;
     }
 
-    // <editor-fold desc="Getters" defaultstate="collapsed">
+    // <editor-fold desc="Getters e Setters" defaultstate="collapsed">
     public String getNome()
     {
         return nome;
+    }
+    
+    public void setNome(String nome)
+    {
+        this.nome = nome;
     }
     // </editor-fold>
     
@@ -53,5 +58,12 @@ public class Categoria extends AbstractRecord
     public static List<Categoria> where(Predicate<Categoria> clause)
     {
         return Categoria.db.where(clause);
+    }
+    
+    @Override
+    public String toString()
+    {
+        return String.format("%s"
+                + "Nome: %s\n", super.toString(), this.getId());
     }
 }

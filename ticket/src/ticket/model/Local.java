@@ -23,8 +23,6 @@ public class Local extends AbstractRecord
     private String logradouro;
     private String numero;
     private String bairro;
-    private String refencia;
-    private String complemento;
     private String cep;
     private String cidade;
     
@@ -34,10 +32,65 @@ public class Local extends AbstractRecord
         this.nome = nome;
     }
     
-    // <editor-fold desc="Getters" defaultstate="collapsed">
+    // <editor-fold desc="Getters e Setters" defaultstate="collapsed">
     public String getNome()
     {
         return nome;
+    }
+
+    public String getLogradouro()
+    {
+        return logradouro;
+    }
+    
+    public String getNumero()
+    {
+        return numero;
+    }
+    
+    public String getBairro()
+    {
+        return bairro;
+    }
+    
+    public String getCep()
+    {
+        return cep;
+    }
+    
+    public String getCidade()
+    {
+        return cidade;
+    }
+
+    public void setNome(String nome)
+    {
+        this.nome = nome;
+    }
+    
+    public void setLogradouro(String logradouro)
+    {
+        this.logradouro = logradouro;
+    }
+
+    public void setNumero(String numero)
+    {
+        this.numero = numero;
+    }
+    
+    public void setBairro(String bairro)
+    {
+        this.bairro = bairro;
+    }
+
+    public void setCep(String cep)
+    {
+        this.cep = cep;
+    }
+
+    public void setCidade(String cidade)
+    {
+        this.cidade = cidade;
     }
     // </editor-fold>
 
@@ -60,5 +113,18 @@ public class Local extends AbstractRecord
     public static List<Local> where(Predicate<Local> clause)
     {
         return Local.db.where(clause);
+    }
+    
+    @Override
+    public String toString()
+    {
+        return String.format("%s" //toString da superclasse
+                + "Nome: %s\n"
+                + "Logradouro: %s\n"
+                + "Numero: %s\n"
+                + "Bairro: %s\n"
+                + "CEP: %s\n"
+                + "Cidade: %s\n", super.toString(), this.getNome(), this.getLogradouro(), 
+                this.getNumero(), this.getBairro(), this.getCep(), this.getCidade());
     }
 }

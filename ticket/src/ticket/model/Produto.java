@@ -82,4 +82,17 @@ public final class Produto extends AbstractRecord
     {
         return Produto.db.where(clause);
     }
+    
+    @Override
+    public String toString()
+    {
+        return String.format("%s"
+                + "Título: %s\n"
+                + "Descrição: %s\n"
+                + "Evento -> \n{\n%s}\n"
+                + "Valor: %f\n"
+                + "Quantidade Ingressos: %d\n", super.toString(), this.getTitulo(),
+                this.getDescricao(), this.getEvento(), this.getValorProduto(),
+                this.getQuantidadeItens());
+    }
 }

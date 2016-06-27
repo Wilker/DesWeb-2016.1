@@ -35,7 +35,7 @@ public class APICartaoDeCredito
     
     public enum CodResultado { SUCESSO, SALDO_INSUFICIENTE, DADOS_INVALIDOS }
     
-    public Resultado faturar(String numCC, String senha, double valor)
+    public Resultado faturar(String nome, String numeroCC, String validade, String codSeguranca, double valor)
     {
         return new Resultado(CodResultado.SUCESSO, "xyz123");
     }
