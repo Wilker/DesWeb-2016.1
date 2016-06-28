@@ -100,17 +100,12 @@ public class Pedido extends AbstractRecord
     @Override
     public String toString()
     {
-        String pedidoItens = "";
-        //System.out.println(this.getPedidoItens());
-//        for(PedidoItem p : this.getPedidoItens())
-//        {
-//            pedidoItens = pedidoItens+p.toString();
-//        }
-        
-        return String.format("%s"
-                + "Usuario -> \n{\n %s }\n"
+        return String.format("//PEDIDO\n"
+                + "Pedido ID: %s\n"
+                + "Usuario -> { id: %d }\n"
                 + "PedidoItens -> \n{\n%s}\n"
-                + "Faturado?: %s\n", super.toString(), this.getUsuario(),
-                pedidoItens, this.isFaturado());
+                + "Faturado?: %s\n"
+                + "PEDIDO\\\\\n", super.toString(), this.getUsuario().getId(),
+                this.getPedidoItens().stream().map(ped -> "\t".concat(ped.toString())).reduce(String::concat), this.isFaturado());
     }
 }

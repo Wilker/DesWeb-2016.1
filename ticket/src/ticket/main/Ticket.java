@@ -5,7 +5,9 @@
  */
 package ticket.main;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import ticket.apicartao.APICartaoDeCredito;
 import ticket.exceptions.QuantidadeIngressosInvalidaException;
 import ticket.model.*;
@@ -20,7 +22,7 @@ public class Ticket
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         Categoria show = new Categoria("Show");
         show.save();
@@ -51,6 +53,7 @@ public class Ticket
 
         Usuario silva = new Usuario("Silva", "silva@silva", "123");
         silva.save();
+        
         System.out.println("USUÁRIO------------------------------------------------------\n");
         System.out.println(silva);
         System.out.println("FIM USUÁRIO--------------------------------------------------\n");
@@ -71,10 +74,8 @@ public class Ticket
             System.out.println("PEDIDO 1-------------------------------------------------\n");
             PedidoItem pi = new PedidoItem(ingressoMassacrationPistaComum, ped1, 3, 0.0);
             pi.save();
-         //   PedidoItem pi2 = new PedidoItem(ingressoMassacrationPistaComum, ped1, 1, 0.0);
-           // pi2.save();
-            //PedidoItem pi3 = new PedidoItem(ingressoMassacrationPistaComum, ped1, 1, 0.0);
-            //pi3.save();
+            PedidoItem pi2 = new PedidoItem(ingressoMassacrationPistaComum, ped1, 1, 0.0);
+            pi2.save();
         } 
         catch (QuantidadeIngressosInvalidaException ex)
         {
@@ -83,7 +84,6 @@ public class Ticket
         }
         finally
         {
-            System.out.println(ped1.getPedidoItens());
             System.out.println(ped1);
             System.out.println("FIM PEDIDO 1---------------------------------------------\n");
         }
@@ -92,10 +92,8 @@ public class Ticket
         try
         {
             System.out.println("PEDIDO 2-------------------------------------------------\n");
-            PedidoItem pi4 = new PedidoItem(ingressoMassacrationPistaPremium, ped2, 2, 0.1);
-            pi4.save();
-            PedidoItem pi5 = new PedidoItem(ingressoMassacrationPistaPremium, ped2, 70, 0);
-            pi5.save();
+            PedidoItem pi3 = new PedidoItem(ingressoMassacrationPistaPremium, ped2, 2, 0.1);
+            pi3.save();
         } 
         catch (QuantidadeIngressosInvalidaException ex)
         {
@@ -122,6 +120,7 @@ public class Ticket
         }
         finally
         {
+            ped3.delete();
             System.out.println("FIM PEDIDO 3---------------------------------------------\n");
         }
 
@@ -134,5 +133,7 @@ public class Ticket
         pag.Faturar(apiCC, "SILVA SILVA", "12345", "06/66", "666");
         System.out.println(pag);
         System.out.println("FIM PAGAMENTO PEDIDO 1-----------------------------------\n");
+        
+        System.out.println(silva);
     }
 }

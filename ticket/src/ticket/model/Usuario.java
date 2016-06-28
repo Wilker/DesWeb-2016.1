@@ -74,19 +74,14 @@ public class Usuario extends AbstractRecord
     
     @Override
     public String toString()
-    {
-        String pedidos = "";
-        List<Pedido> pdfsghsdghdfgzsz = this.getPedidos();
-        for(Pedido p : this.getPedidos())
-        {
-            pedidos = pedidos.concat(p.toString());
-        }
-        
-        return String.format("%s"
+    {   
+        return String.format("//USUARIO\n"
+                + "Usuario ID: %s\n"
                 + "Nome: %s\n"
                 + "Email: %s\n"
                 + "Senha: %s\n"
-                + "Pedidos -> %s", super.toString(), this.getNome(), this.getEmail(),
-                this.getSenha(), pedidos);
+                + "Pedidos -> %s\n"
+                + "USUARIO\\\\\n", super.toString(), this.getNome(), this.getEmail(),
+                this.getSenha(), this.getPedidos());
     }
 }
