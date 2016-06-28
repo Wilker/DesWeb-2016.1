@@ -9,6 +9,8 @@ package ticket.model;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import ticket.activerecord.AbstractRecord;
 import ticket.activerecord.DBSimulator;
 
@@ -100,11 +102,12 @@ public class Evento extends AbstractRecord
     @Override
     public String toString()
     {
-        return String.format("%s"
-                + "Descrição: %s\n"
-                + "Data: %s\n"
-                + "Local -> \n{\n%s}\n"
-                + "Categoria -> \n{\n%s}\n", super.toString(), this.getDescricao(), 
-                this.getData(), this.getLocal(), this.getCategoria());
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("Evento id", this.getId())
+                .append("Evento descrição", this.getDescricao())
+                .append("Evento data", this.getData())
+                .append("Evento local", this.getLocal())
+                .append("Evento categoria", this.getCategoria())
+                .build();
     }
 }

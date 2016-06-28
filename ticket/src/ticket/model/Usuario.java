@@ -7,6 +7,8 @@ package ticket.model;
 
 import java.util.List;
 import java.util.function.Predicate;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import ticket.activerecord.AbstractRecord;
 import ticket.activerecord.DBSimulator;
 
@@ -74,14 +76,13 @@ public class Usuario extends AbstractRecord
     
     @Override
     public String toString()
-    {   
-        return String.format("//USUARIO\n"
-                + "Usuario ID: %s\n"
-                + "Nome: %s\n"
-                + "Email: %s\n"
-                + "Senha: %s\n"
-                + "Pedidos -> %s\n"
-                + "USUARIO\\\\\n", super.toString(), this.getNome(), this.getEmail(),
-                this.getSenha(), this.getPedidos());
+    {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("Usuario id", this.getId())
+                .append("Usuario nome", this.getNome())
+                .append("Usuario email", this.getEmail())
+                .append("Usuario senha", this.getSenha())
+                .append("Usuario pedidos", this.getPedidos())
+                .build();
     }
 }

@@ -8,7 +8,8 @@ package ticket.model;
 
 import java.util.List;
 import java.util.function.Predicate;
-//import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import ticket.activerecord.AbstractRecord;
 import ticket.activerecord.DBSimulator;
 
@@ -64,9 +65,9 @@ public class Categoria extends AbstractRecord
     @Override
     public String toString()
     {
-        return String.format("%s"
-                + "Nome: %s\n", super.toString(), this.getNome());
-        
-        //return new ToStringBuilder(this).reflectionToString(this);
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("Categoria id", this.getId())
+                .append("Categoria nome", this.getNome())
+                .build();
     }
 }

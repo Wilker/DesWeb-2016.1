@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import ticket.activerecord.AbstractRecord;
 import ticket.activerecord.DBSimulator;
 
@@ -100,12 +102,11 @@ public class Pedido extends AbstractRecord
     @Override
     public String toString()
     {
-        return String.format("//PEDIDO\n"
-                + "Pedido ID: %s\n"
-                + "Usuario -> { id: %d }\n"
-                + "PedidoItens -> \n{\n%s}\n"
-                + "Faturado?: %s\n"
-                + "PEDIDO\\\\\n", super.toString(), this.getUsuario().getId(),
-                this.getPedidoItens().stream().map(ped -> "\t".concat(ped.toString())).reduce(String::concat), this.isFaturado());
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("Pedido id", this.getId())
+                .append("Pedido usuário", this.getUsuario().getNome())
+                .append("Pedido ítens", this.getPedidoItens())
+                .append("Pedido faturado?", this.isFaturado())
+                .build();
     }
 }

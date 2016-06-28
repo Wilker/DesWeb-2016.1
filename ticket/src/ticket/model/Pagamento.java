@@ -9,6 +9,8 @@ package ticket.model;
 import ticket.apicartao.APICartaoDeCredito;
 import java.util.List;
 import java.util.function.Predicate;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import ticket.activerecord.AbstractRecord;
 import ticket.activerecord.DBSimulator;
 
@@ -93,8 +95,10 @@ public class Pagamento extends AbstractRecord
     @Override
     public String toString()
     {
-        return String.format("%s"
-                + "Pedido -> %d\n"
-                + "Código de Faturamento: %s\n", super.toString(), this.getPedido().getId(), this.getCodFaturamento());
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("Pagamento id", this.getId())
+                .append("Pagamento pedido", this.getPedido().getId())
+                .append("Pagamento cod. faturamento", this.getCodFaturamento())
+                .build();
     }
 }

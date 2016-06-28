@@ -7,6 +7,8 @@ package ticket.model;
 
 import java.util.List;
 import java.util.function.Predicate;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import ticket.activerecord.AbstractRecord;
 import ticket.activerecord.DBSimulator;
 
@@ -116,15 +118,13 @@ public class PedidoItem extends AbstractRecord
     @Override
     public String toString()
     {
-        return String.format("//PEDIDO ITEM\n"
-                + "PedidoItem ID: %s\n"
-                + "ProdutoID: %d\n"
-                + "Quantidade: %d\n"
-                + "Valor vendido: %f\n"
-                + "Desconto: %f\n"
-                + "Valor total: %f\n"
-                + "PEDIDO ITEM\\\\\n", super.toString(), this.getProduto().getId(),
-                this.getQuantidade(), this.getValorVendido(), this.getDesconto(),
-                this.getValorTotal());
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("PedidoItem id", this.getId())
+                .append("PedidoItem produto", this.getProduto().getTitulo())
+                .append("PedidoItem quantidade", this.getQuantidade())
+                .append("PedidoItem valor vendido", this.getValorVendido())
+                .append("PedidoItem desconto", this.getDesconto())
+                .append("PedidoItem valor total", this.getValorTotal())
+                .toString();
     }
 }

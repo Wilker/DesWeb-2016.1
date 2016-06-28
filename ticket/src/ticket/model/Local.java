@@ -8,6 +8,8 @@ package ticket.model;
 
 import java.util.List;
 import java.util.function.Predicate;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import ticket.activerecord.AbstractRecord;
 import ticket.activerecord.DBSimulator;
 
@@ -123,13 +125,14 @@ public class Local extends AbstractRecord
     @Override
     public String toString()
     {
-        return String.format("%s" //toString da superclasse
-                + "Nome: %s\n"
-                + "Logradouro: %s\n"
-                + "Numero: %s\n"
-                + "Bairro: %s\n"
-                + "CEP: %s\n"
-                + "Cidade: %s\n", super.toString(), this.getNome(), this.getLogradouro(), 
-                this.getNumero(), this.getBairro(), this.getCep(), this.getCidade());
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("Local id", this.getId())
+                .append("Local nome", this.getNome())
+                .append("Local logradouro", this.getLogradouro())
+                .append("Local numero", this.getNumero())
+                .append("Local bairro", this.getBairro())
+                .append("Local CEP", this.getCep())
+                .append("Local cidade", this.getCidade())
+                .build();
     }
 }

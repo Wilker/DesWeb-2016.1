@@ -8,6 +8,8 @@ package ticket.model;
 
 import java.util.List;
 import java.util.function.Predicate;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import ticket.activerecord.AbstractRecord;
 import ticket.activerecord.DBSimulator;
 
@@ -91,13 +93,13 @@ public final class Produto extends AbstractRecord
     @Override
     public String toString()
     {
-        return String.format("%s"
-                + "Título: %s\n"
-                + "Descrição: %s\n"
-                + "Evento -> \n{\n%s}\n"
-                + "Valor: %f\n"
-                + "Quantidade Ingressos: %d\n", super.toString(), this.getTitulo(),
-                this.getDescricao(), this.getEvento(), this.getValorProduto(),
-                this.getQuantidadeItens());
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("Produto id", this.getId())
+                .append("Pruduto titulo", this.getTitulo())
+                .append("Produto descricao", this.getDescricao())
+                .append("Produto valor", this.getValorProduto())
+                .append("Produto quantidade", this.getQuantidadeItens())
+                .build();
+                
     }
 }
