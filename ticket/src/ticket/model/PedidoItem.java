@@ -18,7 +18,6 @@ import ticket.exceptions.QuantidadeIngressosInvalidaException;
  */
 public class PedidoItem extends AbstractRecord
 {
-
     private static DBSimulator<PedidoItem> db = new DBSimulator<>();
 
     private int produto; //alterado para guardar a referência do produto
@@ -33,13 +32,15 @@ public class PedidoItem extends AbstractRecord
         this.produto = produto.getId();
         this.pedido = pedido.getId();
         
-        if(quantidade > 4 || quantidade > produto.getQuantidadeItens())
+        if(quantidade > 4 || quantidade > produto.getQuantidadeItens() || 
+                (quantidade > 4 - this.getQuantidadePedidosUsuario()))
         {
             throw new QuantidadeIngressosInvalidaException();
         }
         else
         {
             this.quantidade = quantidade;
+            produto.take(quantidade);
         }
         
         this.valorVendido = produto.getValorProduto();
@@ -74,9 +75,22 @@ public class PedidoItem extends AbstractRecord
 
     public double getValorTotal()
     {
-        return this.getValorVendido() - (this.getValorVendido() * this.getDesconto());
+        return this.getQuantidade() * (this.getValorVendido() - (this.getValorVendido() * this.getDesconto()));
+    }
+    
+    private int getQuantidadePedidosUsuario()
+    {
+        List<PedidoItem> x = PedidoItem.where(p -> p.getPedido().getUsuario().equals(this.getPedido().getUsuario()) & 
+                p.getProduto().equals(this.getProduto()));
+        int count = x.stream().map((pi) -> pi.getQuantidade()).reduce(0, Integer::sum);
+        return count;
     }
     // </editor-fold>
+    
+    public void cancelar()
+    {
+        this.getProduto().take(Math.negateExact(this.getQuantidade()));
+    }
 
     @Override
     protected DBSimulator getDB()

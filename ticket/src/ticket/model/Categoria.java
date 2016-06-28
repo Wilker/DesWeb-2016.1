@@ -64,6 +64,6 @@ public class Categoria extends AbstractRecord
     public String toString()
     {
         return String.format("%s"
-                + "Nome: %s\n", super.toString(), this.getId());
+                + "Nome: %s\n", super.toString(), this.getNome());
     }
 }

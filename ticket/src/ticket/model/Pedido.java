@@ -8,6 +8,7 @@ package ticket.model;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import ticket.activerecord.AbstractRecord;
 import ticket.activerecord.DBSimulator;
 
@@ -41,7 +42,8 @@ public class Pedido extends AbstractRecord
     
     public List<PedidoItem> getPedidoItens()
     {
-        return PedidoItem.where(pedidoItem -> pedidoItem.getPedido().equals(this));
+        List<PedidoItem> x = PedidoItem.selectAll().stream().filter(pi -> pi.getPedido().equals(this)).collect(Collectors.toList());
+        return x;
     }
     
     public double getValorTotal()
@@ -60,10 +62,18 @@ public class Pedido extends AbstractRecord
         
     }
     // </editor-fold>
-
+    
     public boolean isFaturado()
     {
         return this.getPagamento() == null ? false : this.getPagamento().isFaturado();
+    }
+    
+    public void cancelar()
+    {
+        for(PedidoItem pi : this.getPedidoItens())
+        {
+            pi.cancelar();
+        }
     }
     
     @Override
@@ -90,11 +100,17 @@ public class Pedido extends AbstractRecord
     @Override
     public String toString()
     {
+        String pedidoItens = "";
+        //System.out.println(this.getPedidoItens());
+//        for(PedidoItem p : this.getPedidoItens())
+//        {
+//            pedidoItens = pedidoItens+p.toString();
+//        }
+        
         return String.format("%s"
-                + "Usuario -> \n{\n%s}\n"
+                + "Usuario -> \n{\n %s }\n"
                 + "PedidoItens -> \n{\n%s}\n"
                 + "Faturado?: %s\n", super.toString(), this.getUsuario(),
-                this.getPedidoItens().stream().map(s -> String.format("{ %s }\n", s))
-                        .reduce("", (a,b) -> a.concat(b)), this.isFaturado());
+                pedidoItens, this.isFaturado());
     }
 }

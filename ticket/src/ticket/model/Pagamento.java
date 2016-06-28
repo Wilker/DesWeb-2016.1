@@ -94,7 +94,7 @@ public class Pagamento extends AbstractRecord
     public String toString()
     {
         return String.format("%s"
-                + "Pedido -> \n{\n%s}\n"
-                + "Código de Faturamento: %s\n", super.toString(), this.getPedido(), this.getCodFaturamento());
+                + "Pedido -> %d\n"
+                + "Código de Faturamento: %s\n", super.toString(), this.getPedido().getId(), this.getCodFaturamento());
     }
 }

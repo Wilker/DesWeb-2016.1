@@ -25,11 +25,16 @@ public class Local extends AbstractRecord
     private String bairro;
     private String cep;
     private String cidade;
-    
-    public Local(String nome)
+
+    public Local(String nome, String logradouro, String numero, String bairro, String cep, String cidade)
     {
         super();
         this.nome = nome;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.bairro = bairro;
+        this.cep = cep;
+        this.cidade = cidade;
     }
     
     // <editor-fold desc="Getters e Setters" defaultstate="collapsed">

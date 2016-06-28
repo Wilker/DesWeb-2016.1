@@ -68,6 +68,11 @@ public final class Produto extends AbstractRecord
         return Produto.db;
     }
     
+    public void take(int x)
+    {
+        this.quantidadeItens -= x;
+    }
+    
     public static Produto getById(int id)
     {
         return Produto.db.getById(id);
