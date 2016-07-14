@@ -7,6 +7,16 @@ core
 ticket/nbproject/*
 !ticket/nbproject/project.properties
 !ticket/nbproject/project.xml
+ticketWeb/nbproject/*
+!ticketWeb/nbproject/project.properties
+!ticketWeb/nbproject/project.xml
+!ticketWeb/src/java/hibernate.cfg.xml
+*.jar
+
+ticketWeb/build/web/WEB-INF/classes/.netbeans_automatic_build
+ticketWeb/build/web/WEB-INF/classes/.netbeans_update_resources
+!ticketWeb/build/web/WEB-INF/classes/hibernate.cfg.xml'
+
 
 #java specific
 *.class
