@@ -1,6 +1,8 @@
 #ant specific
 ticket/dist/
 ticket/build/
+ticketWeb/dist/
+ticketWeb/build/
 
 #netbeans specific
 core
@@ -11,7 +13,6 @@ ticketWeb/nbproject/*
 !ticketWeb/nbproject/project.properties
 !ticketWeb/nbproject/project.xml
 !ticketWeb/src/java/hibernate.cfg.xml
-*.jar
 
 ticketWeb/build/web/WEB-INF/classes/.netbeans_automatic_build
 ticketWeb/build/web/WEB-INF/classes/.netbeans_update_resources
@@ -29,3 +30,4 @@ ticketWeb/build/web/WEB-INF/classes/.netbeans_update_resources
 *.swp
 *.DS_Store
 *.lock
+/ticketWeb/
