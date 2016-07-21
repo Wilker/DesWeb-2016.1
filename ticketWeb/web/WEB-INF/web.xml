@@ -4,9 +4,17 @@
         <servlet-name>ticket</servlet-name>
         <servlet-class>ticketWeb.ticket</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CadastrarUsuario</servlet-name>
+        <servlet-class>servlets.CadastrarUsuario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ticket</servlet-name>
         <url-pattern>/ticket</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CadastrarUsuario</servlet-name>
+        <url-pattern>/CadastrarUsuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
