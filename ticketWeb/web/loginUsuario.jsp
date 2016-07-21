@@ -13,8 +13,9 @@
         <title>Home</title>
     </head>
     <body>
-        <h1>Bem vindo <% Usuario usuario = (Usuario) request.getAttribute("usuario");
+         <% Usuario usuario = (Usuario) request.getAttribute("usuario");
             usuario.getNome();
-            %></h1>
+            %>
+        <h1>Bem vindo <%= usuario.getNome()  %></h1>
     </body>
 </html>
