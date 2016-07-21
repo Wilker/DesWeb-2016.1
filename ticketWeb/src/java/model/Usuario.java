@@ -17,26 +17,44 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "TICKET.USUARIO")
-public class Usuario
-{
-    
-    @Id @GeneratedValue
+public class Usuario {
+
+    @Id
+    @GeneratedValue
     @Column(name = "ID")
     private int id;
-    
+
     @Column(name = "NOME")
     private String nome;
-    
+
     @Column(name = "EMAIL")
     private String email;
-    
+
     @Column(name = "SENHA")
     private String senha;
-    
-    public Usuario(String nome, String email, String senha)
-    {
+
+    public Usuario(String nome, String email, String senha) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+    }
+
+    public Usuario() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 }
