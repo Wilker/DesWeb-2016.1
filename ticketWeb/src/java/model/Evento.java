@@ -6,11 +6,13 @@
 package model;
 
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
@@ -34,11 +36,14 @@ public class Evento {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data;
 
-    @Column(name = "IDLOCAL")
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IDLOCAL", nullable = false)
     private int local;
 
-    @Column(name = "IDCATEGORIA")
-    private int categoria;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IDCATEGORIA", nullable = false)
+    private Categoria categoria;
 
     public Evento() {
     }
@@ -47,21 +52,21 @@ public class Evento {
     public int getId() {
         return id;
     }
-    
+
     public String getDescricao() {
         return descricao;
     }
-    
+
     public Date getData() {
         return data;
     }
-    
+
     public int getLocal() {
         return local;
     }
-    
-    public int getCategoria() {
+
+    public Categoria getCategoria() {
         return categoria;
     }
-}
 //</editor-fold>
+}
