@@ -10,5 +10,6 @@
     <mapping class="model.Usuario"/>
     <mapping class="model.Local"/>
     <mapping class="model.Evento"/>
+    <mapping class="model.Categoria"/>
   </session-factory>
 </hibernate-configuration>
