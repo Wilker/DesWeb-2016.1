@@ -45,8 +45,9 @@
             <tr>
                 <th>Nome</th>
                 <th>Valor</th>
+                <th>Ingressos disponiveis</th>
                 <th>Quantidade</th>
-                <th>
+                <th>Adicionar Carrinho</th>
             </tr>
 
             <% for(Produto produto: produtos) { %>
@@ -55,6 +56,23 @@
                 <td><%= produto.getValor() %></td>
                 <td><%= produto.getQuantidadeItens() %></td>
                 
+                <form action="AdicionarCarrinho" method="post">
+                    
+                    <td>
+                    <select>
+                    <%  int maxIngressos = (produto.getQuantidadeItens() < 4) ? 
+                                produto.getQuantidadeItens() : 4;
+                        for(int i = 0; i <= maxIngressos; i++) { %>
+
+                        <option value="<%= i %>"><%= i %></option>
+                        
+                    <% } %>
+                    </select>
+                    </td>
+                    
+                    <td><input type="submit" value="Adicionar ao Carrinho"></td>
+                </form>
+            
             </tr>
             <% } %>
             

@@ -17,7 +17,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "TICKET.LOCAL")
-public class Local {
+public class Local 
+{
 
     @Id
     @GeneratedValue
