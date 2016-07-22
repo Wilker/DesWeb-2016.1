@@ -13,6 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Carrinho;
 import model.Usuario;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -49,39 +51,53 @@ public class LoginUsuario extends HttpServlet {
         Query query = session.createQuery(hql);
         query.setParameter("email", email);
         List results = query.list();
+        
         Usuario usuario = null;
-
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginUsuario.jsp");
-
-        if (results == null || results.size() < 1) {
-            dispatcher = getServletContext().getRequestDispatcher("/index.html");
-            dispatcher.forward(request, response);
-        } else {
+        if(results != null && results.size() > 0)
+        {
             usuario = (Usuario) results.get(0);
         }
 
-        String eventosQueryString = "select e from Evento e";
-        Query eventosQuery = session.createQuery(eventosQueryString);
-        List eventosResult = eventosQuery.list();
+        RequestDispatcher dispatcher = null;
 
-        if (validarLogin(usuario, request.getParameter("passwd"))) {
-            request.setAttribute("usuario", usuario);
+        if(usuario != null && validarLogin(usuario, request.getParameter("passwd")))
+        {
+            
+            HttpSession httpSession = request.getSession(true);
+            httpSession.setAttribute("usuario", usuario);
+            httpSession.setAttribute("carrinho", new Carrinho());
+            
+            String eventosQueryString = "select e from Evento e";
+            Query eventosQuery = session.createQuery(eventosQueryString);
+            List eventosResult = eventosQuery.list();
             request.setAttribute("eventos", eventosResult);
+            dispatcher = getServletContext().getRequestDispatcher("/loginUsuario.jsp");
             dispatcher.forward(request, response);
-        } else { //  TODO Escrever mensagem de erro.
-            try (PrintWriter out = response.getWriter()) {
-                /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet LoginUsuario</title>");
-                out.println("</head>");
-                out.println("<body>");
-                out.println("<h1>Servlet LoginUsuario at " + request.getContextPath() + "</h1>");
-                out.println("</body>");
-                out.println("</html>");
-            }
         }
+        else
+        {
+            dispatcher = getServletContext().getRequestDispatcher("/index.html");
+            dispatcher.forward(request, response);
+        }
+        
+
+//        if (validarLogin(usuario, request.getParameter("passwd"))) {
+//            //request.setAttribute("usuario", usuario);
+//
+//        } else { //  TODO Escrever mensagem de erro.
+//            try (PrintWriter out = response.getWriter()) {
+//                /* TODO output your page here. You may use following sample code. */
+//                out.println("<!DOCTYPE html>");
+//                out.println("<html>");
+//                out.println("<head>");
+//                out.println("<title>Servlet LoginUsuario</title>");
+//                out.println("</head>");
+//                out.println("<body>");
+//                out.println("<h1>Servlet LoginUsuario at " + request.getContextPath() + "</h1>");
+//                out.println("</body>");
+//                out.println("</html>");
+//            }
+//        }
     }
 
     boolean validarLogin(Usuario usuario, String senha) {

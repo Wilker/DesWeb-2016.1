@@ -19,7 +19,7 @@
     </head>
     <body>
         <% 
-            Usuario usuario = (Usuario) request.getAttribute("usuario");
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
             usuario.getNome();
 
             List<Evento> eventos = (List<Evento>) request.getAttribute("eventos");
