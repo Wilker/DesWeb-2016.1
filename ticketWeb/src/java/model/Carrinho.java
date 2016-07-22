@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public class Carrinho {
 
-    List<PedidoItem> pedidoItens;
+    private List<PedidoItem> pedidoItens;
 
     public Carrinho() 
     {
@@ -27,17 +27,32 @@ public class Carrinho {
         return pedidoItens;
     }
 
-    public void addPedidoItem(PedidoItem pi) 
+    public boolean addPedidoItem(PedidoItem pi) 
     {
         if (pedidoItens.stream().anyMatch(ped -> ped.getProduto().equals(pi.getProduto()))) 
         {
-            pedidoItens.stream()
+            PedidoItem piAux = pedidoItens.stream()
                     .filter(prod -> prod.getProduto().equals(pi.getProduto()))
-                    .collect(Collectors.toList()).get(0).adicionarQuantidade(pi.getQuantidade());
+                    .collect(Collectors.toList()).get(0);
+            if((pi.getQuantidade() + piAux.getQuantidade()) > 4)
+                return false;
+            else
+            {
+                piAux.adicionarQuantidade(pi.getQuantidade());
+                return true;
+            }
         }
         else
         {
             pedidoItens.add(pi);
+            return true;
         }
+    }
+    
+    public double valorTotalCarrinho()
+    {
+        return pedidoItens.stream()
+                .map(pi -> pi.getValorVendido() * pi.getQuantidade())
+                .reduce(0.0, Double::sum);
     }
 }
