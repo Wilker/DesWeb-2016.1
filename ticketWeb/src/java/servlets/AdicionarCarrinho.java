@@ -28,33 +28,29 @@ public class AdicionarCarrinho extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException 
-    {
+            throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
         Carrinho carrinho = (Carrinho) httpSession.getAttribute("carrinho");
-        
+
         Produto produto = null;
         int idProduto = Integer.parseInt(request.getParameter("idProduto"));
         int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-        
-        try 
-        {
-                AnnotationConfiguration conf = new AnnotationConfiguration();
-                conf.configure();
-                SessionFactory sf = conf.buildSessionFactory();
-                Session session = sf.openSession();
-                produto = (Produto) session.get(model.Produto.class, idProduto);
-                session.close();
+
+        try {
+            AnnotationConfiguration conf = new AnnotationConfiguration();
+            conf.configure();
+            SessionFactory sf = conf.buildSessionFactory();
+            Session session = sf.openSession();
+            produto = (Produto) session.get(model.Produto.class, idProduto);
+            session.close();
+        } catch (Exception ex) {
+
         }
-        catch(Exception ex)
-        {
-            
-        }
-        
+
         PedidoItem pi = new PedidoItem(produto, quantidade, produto.getValor());
-        
+
         carrinho.addPedidoItem(pi);
-        
+
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginUsuario.jsp");
         dispatcher.forward(request, response);
     }

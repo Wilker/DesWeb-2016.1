@@ -60,7 +60,9 @@
                 </tr>
                 <% }%>
             </table>
-            <input type="button" onclick="location.href='/carrinho.jsp';" value="Vá para o carrinho" />
+            <form action="carrinho.jsp">
+                <input type="submit" value="Vá para o carrinho">
+            </form>
         </div>
 
         <div id="meusEventos">
