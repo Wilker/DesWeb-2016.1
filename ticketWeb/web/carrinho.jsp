@@ -18,7 +18,7 @@
         <%    Carrinho carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
             List<PedidoItem> lista = carrinho.getPedidoItens();
         %>
-        <h1>Hello World!</h1>
+        <h1>Seu Carrinho</h1>
 
         <table>
             <tr>
@@ -43,5 +43,15 @@
             </tr>
             <% }%>
         </table>
+
+        <form action="loginUsuario.jsp">
+            <input type="submit" value="Continue Compando">
+        </form>
+
+        <form action="finalizaCompra.jsp">
+            <input type="submit" value="Finalizar Compra">
+        </form>
+
+
     </body>
 </html>
