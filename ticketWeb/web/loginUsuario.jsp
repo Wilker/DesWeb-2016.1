@@ -4,6 +4,10 @@
     Author     : wilker
 --%>
 
+<%@page import="org.hibernate.Query"%>
+<%@page import="org.hibernate.Session"%>
+<%@page import="org.hibernate.SessionFactory"%>
+<%@page import="org.hibernate.cfg.AnnotationConfiguration"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="model.Usuario"%>
@@ -18,38 +22,49 @@
         <title>Home</title>
     </head>
     <body>
-        <% 
+        <%
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
             usuario.getNome();
 
-            List<Evento> eventos = (List<Evento>) request.getAttribute("eventos");
+            AnnotationConfiguration conf = new AnnotationConfiguration();
+            conf.configure();
+            SessionFactory sf = conf.buildSessionFactory();
+            Session s = sf.openSession();
+
+            String eventosQueryString = "select e from Evento e";
+            Query eventosQuery = s.createQuery(eventosQueryString);
+            List<Evento> eventos = (List<Evento>) eventosQuery.list();
+
         %>
         <h1>Bem vindo <%= usuario.getNome()%></h1>
-        
-        <div id="todosEventos">
-        <h2>Eventos disponiveis</h2>
 
-        <table>
-            <tr>
-                <th>Evento</th>
-                <th>Data</th>
-                <th>Local</th>
-                <th>Categoria</th>
-            </tr>
-            <c:forEach items="${eventos}" var="evento">
-            <tr>
-                <td><c:out value="${evento.getDescricao()}" /></td>
-                <td><c:out value="${evento.getData()}" /></td>
-                <td><c:out value="${evento.getLocal().getNome()}" /></td>
-                <td><c:out value="${evento.getCategoria().getNome()}" /></td>
-                <td><a href="evento.jsp?id=${evento.getId()}">Infos</a></td>
-            </tr>
-            </c:forEach>
-        </table>
+        <div id="todosEventos">
+            <h2>Eventos disponiveis</h2>
+
+            <table>
+                <tr>
+                    <th>Evento</th>
+                    <th>Data</th>
+                    <th>Local</th>
+                    <th>Categoria</th>
+                </tr>
+
+                <% for(Evento evento: eventos) { %>
+                <tr>
+                    
+                    <td><%= evento.getDescricao() %></td>
+                    <td><%= evento.getData() %></td>
+                    <td><%= evento.getLocal().getNome() %></td>
+                    <td><%= evento.getCategoria().getNome() %></td>
+                    <td><a href="evento.jsp?id=<%= evento.getId() %>">Infos</a></td>
+                </tr>
+                <% } %>
+
+            </table>
         </div>
-        
+
         <div id="meusEventos">
-            
+
         </div>
     </body>
 </html>

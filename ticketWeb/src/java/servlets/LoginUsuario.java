@@ -67,10 +67,6 @@ public class LoginUsuario extends HttpServlet {
             httpSession.setAttribute("usuario", usuario);
             httpSession.setAttribute("carrinho", new Carrinho());
             
-            String eventosQueryString = "select e from Evento e";
-            Query eventosQuery = session.createQuery(eventosQueryString);
-            List eventosResult = eventosQuery.list();
-            request.setAttribute("eventos", eventosResult);
             dispatcher = getServletContext().getRequestDispatcher("/loginUsuario.jsp");
             dispatcher.forward(request, response);
         }
