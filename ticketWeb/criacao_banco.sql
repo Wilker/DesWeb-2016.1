@@ -40,3 +40,12 @@ create table "PRODUTO"
     "VALOR" double not null,
     "QUANTIDADE" int not null
 );
+
+drop table "PEDIDO";
+
+create table "PEDIDO"
+(
+    "ID" int not null primary key generated always as identity (start with 1, increment by 1),
+    "DATA" DATE not null,
+    "IDUSUARIO" int not null references USUARIO(ID)
+);
