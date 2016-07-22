@@ -6,11 +6,11 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import model.*;
+import org.hibernate.*;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
  *
@@ -28,20 +28,35 @@ public class AdicionarCarrinho extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AdicionarCarrinho</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AdicionarCarrinho at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            throws ServletException, IOException 
+    {
+        HttpSession httpSession = request.getSession();
+        Carrinho carrinho = (Carrinho) httpSession.getAttribute("carrinho");
+        
+        Produto produto = null;
+        int idProduto = Integer.parseInt(request.getParameter("idProduto"));
+        int quantidade = Integer.parseInt(request.getParameter("quantidade"));
+        
+        try 
+        {
+                AnnotationConfiguration conf = new AnnotationConfiguration();
+                conf.configure();
+                SessionFactory sf = conf.buildSessionFactory();
+                Session session = sf.openSession();
+                produto = (Produto) session.get(model.Produto.class, idProduto);
+                session.close();
         }
+        catch(Exception ex)
+        {
+            
+        }
+        
+        PedidoItem pi = new PedidoItem(produto, quantidade, produto.getValor());
+        
+        carrinho.addPedidoItem(pi);
+        
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginUsuario.jsp");
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

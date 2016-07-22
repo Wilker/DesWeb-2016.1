@@ -29,7 +29,7 @@ public class PedidoItem
     private PedidoItem(){
     }
     
-    private PedidoItem(Produto produto, int quantidade, double valorVendido)
+    public PedidoItem(Produto produto, int quantidade, double valorVendido)
     {
         this.produto = produto;
         this.quantidade = quantidade;

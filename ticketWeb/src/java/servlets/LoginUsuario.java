@@ -79,25 +79,6 @@ public class LoginUsuario extends HttpServlet {
             dispatcher = getServletContext().getRequestDispatcher("/index.html");
             dispatcher.forward(request, response);
         }
-        
-
-//        if (validarLogin(usuario, request.getParameter("passwd"))) {
-//            //request.setAttribute("usuario", usuario);
-//
-//        } else { //  TODO Escrever mensagem de erro.
-//            try (PrintWriter out = response.getWriter()) {
-//                /* TODO output your page here. You may use following sample code. */
-//                out.println("<!DOCTYPE html>");
-//                out.println("<html>");
-//                out.println("<head>");
-//                out.println("<title>Servlet LoginUsuario</title>");
-//                out.println("</head>");
-//                out.println("<body>");
-//                out.println("<h1>Servlet LoginUsuario at " + request.getContextPath() + "</h1>");
-//                out.println("</body>");
-//                out.println("</html>");
-//            }
-//        }
     }
 
     boolean validarLogin(Usuario usuario, String senha) {

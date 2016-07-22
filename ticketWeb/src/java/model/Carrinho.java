@@ -5,10 +5,29 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author leo
  */
-public class Carrinho {
+public class Carrinho 
+{
+    List<PedidoItem> pedidoItens;
     
+    
+    public Carrinho()
+    {
+        pedidoItens = new ArrayList<>();
+    }
+
+    public List<PedidoItem> getPedidoItens() {
+        return pedidoItens;
+    }
+    
+    public void addPedidoItem(PedidoItem pi)
+    {
+        pedidoItens.add(pi);
+    }
 }

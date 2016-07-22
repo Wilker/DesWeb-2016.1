@@ -57,9 +57,9 @@
                 <td><%= produto.getQuantidadeItens() %></td>
                 
                 <form action="AdicionarCarrinho" method="post">
-                    
+                    <input type="hidden" name="idProduto" value="<%= produto.getId() %>" />
                     <td>
-                    <select>
+                    <select name="quantidade">
                     <%  int maxIngressos = (produto.getQuantidadeItens() < 4) ? 
                                 produto.getQuantidadeItens() : 4;
                         for(int i = 0; i <= maxIngressos; i++) { %>
