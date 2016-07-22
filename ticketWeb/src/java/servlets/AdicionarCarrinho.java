@@ -6,6 +6,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import model.*;
@@ -49,10 +50,19 @@ public class AdicionarCarrinho extends HttpServlet {
 
         PedidoItem pi = new PedidoItem(produto, quantidade, produto.getValor());
 
-        carrinho.addPedidoItem(pi);
-
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginUsuario.jsp");
-        dispatcher.forward(request, response);
+        if (!carrinho.addPedidoItem(pi)) {
+            response.setContentType("text/html;charset=UTF-8");
+            try (PrintWriter out = response.getWriter()) {
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('4 ingressos por pessoa!');");
+                out.println("location='loginUsuario.jsp';");
+                out.println("</script>");
+                
+            }
+        } else {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginUsuario.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
