@@ -49,22 +49,25 @@
                     <th>Categoria</th>
                 </tr>
 
-                <% for(Evento evento: eventos) { %>
+                <% for (Evento evento : eventos) {%>
                 <tr>
-                    
-                    <td><%= evento.getDescricao() %></td>
-                    <td><%= evento.getData() %></td>
-                    <td><%= evento.getLocal().getNome() %></td>
-                    <td><%= evento.getCategoria().getNome() %></td>
-                    <td><a href="evento.jsp?id=<%= evento.getId() %>">Infos</a></td>
-                </tr>
-                <% } %>
 
+                    <td><%= evento.getDescricao()%></td>
+                    <td><%= evento.getData()%></td>
+                    <td><%= evento.getLocal().getNome()%></td>
+                    <td><%= evento.getCategoria().getNome()%></td>
+                    <td><a href="evento.jsp?id=<%= evento.getId()%>">Infos</a></td>
+                </tr>
+                <% }%>
             </table>
+            <input type="button" onclick="location.href='/carrinho.jsp';" value="Vá para o carrinho" />
         </div>
 
         <div id="meusEventos">
 
         </div>
+
+
+
     </body>
 </html>
