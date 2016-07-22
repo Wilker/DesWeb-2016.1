@@ -5,25 +5,29 @@
  */
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  *
  * @author leo
  */
+@Entity
+@Table(name = "PEDIDOITEM")
 public class PedidoItem 
 {
-//    @Id
-//    @GeneratedValue
-//    @Column(name = "ID")
+    @Id
+    @GeneratedValue
+    @Column(name = "ID")
     private int id;
     
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IDPRODUTO", nullable = false)
     private Produto produto;
     
+    @Column(name = "QUANTIDADE")
     private int quantidade;
     
+    @Column(name = "VALORVENDIDO")
     private double valorVendido;
     
     private PedidoItem(){
@@ -46,6 +50,11 @@ public class PedidoItem
 
     public int getQuantidade() {
         return quantidade;
+    }
+    
+    public void adicionarQuantidade(int quantidade)
+    {
+        this.quantidade += quantidade;
     }
 
     public double getValorVendido() {

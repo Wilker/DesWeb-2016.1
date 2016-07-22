@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.util.Objects;
 import javax.persistence.*;
 
 /**
@@ -55,6 +56,24 @@ public class Produto
 
     public int getQuantidadeItens() {
         return quantidadeItens;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Produto other = (Produto) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        return true;
     }
     
     
