@@ -26,6 +26,10 @@ public class Categoria {
 
     @Column(name = "NOME")
     private String nome;
+    
+    public Categoria(){
+    }
+            
 
     public Categoria(String nome) {
     }

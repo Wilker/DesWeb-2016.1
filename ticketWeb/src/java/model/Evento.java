@@ -39,7 +39,7 @@ public class Evento {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IDLOCAL", nullable = false)
-    private int local;
+    private Local local;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IDCATEGORIA", nullable = false)
@@ -61,7 +61,7 @@ public class Evento {
         return data;
     }
 
-    public int getLocal() {
+    public Local getLocal() {
         return local;
     }
 
