@@ -37,8 +37,8 @@
                 <td><%= item.getProduto().getNome()%></td>
                 <td><%= item.getProduto().getEvento().getData()%></td>
                 <td><%= item.getProduto().getValor()%></td>
-                <td><%= item.getProduto().getQuantidadeItens()%></td>
-                <td><%= item.getProduto().getValor() * item.getQuantidade() %></td>
+                <td><%= item.getQuantidade()%></td>
+                <td><%= item.getProduto().getValor() * item.getQuantidade()%></td>
 
             </tr>
             <% }%>
