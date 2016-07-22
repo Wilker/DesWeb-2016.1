@@ -6,6 +6,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,22 +41,30 @@ public class CadastrarUsuario extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Session session = factory.openSession();
         Transaction tx = null;
-        
-            tx = session.beginTransaction();
-            String nome = request.getParameter("nome");
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
 
-            Usuario novoUsuario = new Usuario(nome, email, senha);
+        tx = session.beginTransaction();
+        String nome = request.getParameter("nome");
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
+        Usuario novoUsuario = new Usuario(nome, email, senha);
+        
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/resultadoCadastro.jsp");
+
+        try {
             session.save(novoUsuario);
             tx.commit();
+            request.setAttribute("status", Boolean.TRUE);
+        } catch (Exception ex) {
+            request.setAttribute("status",Boolean.FALSE);
+            tx.rollback();
+        } finally {
             session.close();
-        
+            dispatcher.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

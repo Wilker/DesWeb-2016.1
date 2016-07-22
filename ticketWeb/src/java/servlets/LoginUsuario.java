@@ -35,8 +35,7 @@ public class LoginUsuario extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException 
-    {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
         AnnotationConfiguration conf = new AnnotationConfiguration();
@@ -50,24 +49,27 @@ public class LoginUsuario extends HttpServlet {
         Query query = session.createQuery(hql);
         query.setParameter("email", email);
         List results = query.list();
-        Usuario usuario = (Usuario) results.get(0);
+        Usuario usuario = null;
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginUsuario.jsp");
+
+        if (results == null || results.size() < 1) {
+            dispatcher = getServletContext().getRequestDispatcher("/index.html");
+            dispatcher.forward(request, response);
+        } else {
+            usuario = (Usuario) results.get(0);
+        }
 
         String eventosQueryString = "select e from Evento e";
         Query eventosQuery = session.createQuery(eventosQueryString);
         List eventosResult = eventosQuery.list();
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginUsuario.jsp");
-
-        if (validarLogin(usuario, request.getParameter("passwd"))) 
-        {
+        if (validarLogin(usuario, request.getParameter("passwd"))) {
             request.setAttribute("usuario", usuario);
             request.setAttribute("eventos", eventosResult);
             dispatcher.forward(request, response);
-        } 
-        else 
-        { //  TODO Escrever mensagem de erro.
-            try (PrintWriter out = response.getWriter()) 
-            {
+        } else { //  TODO Escrever mensagem de erro.
+            try (PrintWriter out = response.getWriter()) {
                 /* TODO output your page here. You may use following sample code. */
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
