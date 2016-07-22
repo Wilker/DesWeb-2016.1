@@ -8,5 +8,6 @@
     <property name="hibernate.connection.username">ticket</property>
     <property name="hibernate.connection.password">ticket</property>
     <mapping class="model.Usuario"/>
+    <mapping class="model.Local"/>
   </session-factory>
 </hibernate-configuration>
