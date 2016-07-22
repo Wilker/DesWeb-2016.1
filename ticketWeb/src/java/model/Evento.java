@@ -3,111 +3,65 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package ticket.model;
+package model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.function.Predicate;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import ticket.activerecord.AbstractRecord;
-import ticket.activerecord.DBSimulator;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
- * @author renan.vieira
+ * @author Wilker
  */
-public class Evento extends AbstractRecord
-{
-    private static DBSimulator<Evento> db = new DBSimulator<>();
-    
+@Entity
+@Table(name = "TICKET.EVENTO")
+public class Evento {
+
+    @Id
+    @GeneratedValue
+    @Column(name = "ID")
+    private int id;
+
+    @Column(name = "DESCRICAO")
     private String descricao;
-    private Date   data;
-    private int    local;
-    private int    categoria;
-            
-    public Evento(String descricao, Date data, Local local, Categoria categoria)
-    {
-        super();
-        this.descricao = descricao;
-        this.data = data;
-        this.local = local.getId();
-        this.categoria = categoria.getId();
+
+    @Column(name = "DATA")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date data;
+
+    @Column(name = "IDLOCAL")
+    private int local;
+
+    @Column(name = "IDCATEGORIA")
+    private int categoria;
+
+    public Evento() {
+    }
+
+//<editor-fold defaultstate="collapsed" desc="Getters">
+    public int getId() {
+        return id;
     }
     
-    // <editor-fold desc="Getters e Setters" defaultstate="collapsed">
-    public String getDescricao()
-    {
-        return this.descricao;
-    }
-
-    public Date getData()
-    {
-        return this.data;
-    }
-
-    public Local getLocal()
-    {
-        return Local.getById(local);
-    }
-
-    public Categoria getCategoria()
-    {
-        return Categoria.getById(categoria);
-    }
-
-    public void setDescricao(String descricao)
-    {
-        this.descricao = descricao;
-    }
-
-    public void setData(Date data)
-    {
-        this.data = data;
-    }
-
-    public void setLocal(Local local)
-    {
-        this.local = local.getId();
-    }
-
-    public void setCategoria(Categoria categoria)
-    {
-        this.categoria = categoria.getId();
-    }
-    // </editor-fold>
-
-    @Override
-    protected DBSimulator getDB()
-    {
-        return Evento.db;
+    public String getDescricao() {
+        return descricao;
     }
     
-    public static Evento getById(int id)
-    {
-        return Evento.db.getById(id);
-    }
-
-    public static List<Evento> selectAll()
-    {
-        return Evento.db.selectAll();
-    }
-
-    public static List<Evento> where(Predicate<Evento> clause)
-    {
-        return Evento.db.where(clause);
+    public Date getData() {
+        return data;
     }
     
-    @Override
-    public String toString()
-    {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("Evento id", this.getId())
-                .append("Evento descrição", this.getDescricao())
-                .append("Evento data", this.getData())
-                .append("Evento local", this.getLocal())
-                .append("Evento categoria", this.getCategoria())
-                .build();
+    public int getLocal() {
+        return local;
+    }
+    
+    public int getCategoria() {
+        return categoria;
     }
 }
+//</editor-fold>

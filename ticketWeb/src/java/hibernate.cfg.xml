@@ -9,5 +9,6 @@
     <property name="hibernate.connection.password">ticket</property>
     <mapping class="model.Usuario"/>
     <mapping class="model.Local"/>
+    <mapping class="model.Evento"/>
   </session-factory>
 </hibernate-configuration>

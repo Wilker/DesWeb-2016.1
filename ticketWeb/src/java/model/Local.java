@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author wilker
+ * @author Wilker
  */
 @Entity
 @Table(name = "TICKET.LOCAL")
