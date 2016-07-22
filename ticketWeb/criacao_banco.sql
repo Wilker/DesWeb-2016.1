@@ -31,3 +31,12 @@ create table "EVENTO"
     "IDLOCAL" int  not null references LOCAL(ID),
     "IDCATEGORIA" int  not null references CATEGORIA(ID)
 );
+
+create table "PRODUTO"
+(
+    "ID" int not null primary key generated always as identity (start with 1, increment by 1),
+    "NOME" varchar(50) not null,
+    "IDEVENTO" int not null references EVENTO(ID),
+    "VALOR" double not null,
+    "QUANTIDADE" int not null
+);
