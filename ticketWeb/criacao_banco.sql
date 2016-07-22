@@ -26,7 +26,7 @@ create table "LOCAL"
 create table "EVENTO"
 (
     "ID" int not null primary key generated always as identity (start with 1, increment by 1),
-    "NOME"  varchar(50)  not null,
+    "DESCRICAO"  varchar(50)  not null,
     "DATA" DATE not null,
     "IDLOCAL" int  not null references LOCAL(ID),
     "IDCATEGORIA" int  not null references CATEGORIA(ID)
