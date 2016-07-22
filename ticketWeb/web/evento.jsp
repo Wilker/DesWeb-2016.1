@@ -4,6 +4,9 @@
     Author     : leo
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.util.List"%>
+<%@page import="model.Produto"%>
 <%@page import="model.Local"%>
 <%@page import="model.Evento"%>
 <%@page import="org.hibernate.cfg.AnnotationConfiguration"%>
@@ -22,6 +25,7 @@
     query.setParameter("id", Integer.parseInt(request.getParameter("id")));
     Evento evento = (Evento) query.list().get(0);
     Local local = evento.getLocal();
+    List<Produto> produtos = evento.getProdutos();
 %>
 <html>
     <head>
@@ -35,5 +39,25 @@
         <p>Logradouro: <%= local.getLogradouro() %> <%= local.getNumero() %>,
             <%= local.getBairro() %> - <%= local.getCidade() %></p>
         <p>Categoria: <%= evento.getCategoria().getNome() %></p>
+        
+        <div id="produtos">
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th>Quantidade</th>
+            </tr>
+
+            <c:forEach items="${produtos}" var="produto">
+                <tr>
+                    <td><c:out value="${produto.getNome()}" /></td>
+                    <td><c:out value="${produto.getValor()}" /></td>
+                    <td><c:out value="${produto.getQuantidade()}" /></td>
+                </tr>
+            </c:forEach>
+
+        </table>
+        </div>
+    
     </body>
 </html>

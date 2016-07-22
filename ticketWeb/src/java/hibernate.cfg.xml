@@ -11,5 +11,7 @@
     <mapping class="model.Local"/>
     <mapping class="model.Evento"/>
     <mapping class="model.Categoria"/>
+    <mapping class="model.Pedido"/>
+    <mapping class="model.Produto"/>
   </session-factory>
 </hibernate-configuration>

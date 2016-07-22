@@ -41,8 +41,6 @@ create table "PRODUTO"
     "QUANTIDADE" int not null
 );
 
-drop table "PEDIDO";
-
 create table "PEDIDO"
 (
     "ID" int not null primary key generated always as identity (start with 1, increment by 1),
