@@ -12,7 +12,7 @@ import javax.persistence.*;
  * @author leo
  */
 @Entity
-@Table(name = "TICKET.CATEGORIA")
+@Table(name = "TICKET.PRODUTO")
 public class Produto 
 {
     
@@ -24,7 +24,7 @@ public class Produto
     @Column(name = "NOME")
     private String nome;
     
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IDEVENTO", nullable = false)
     private Evento evento;
     
@@ -33,6 +33,9 @@ public class Produto
     
     @Column(name = "QUANTIDADE")
     private int quantidadeItens;
+    
+    public Produto(){
+    }
 
     public int getId() {
         return id;

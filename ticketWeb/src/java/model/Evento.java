@@ -37,7 +37,7 @@ public class Evento {
     @JoinColumn(name = "IDCATEGORIA", nullable = false)
     private Categoria categoria;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "evento")
+    @OneToMany(mappedBy = "evento", fetch = FetchType.EAGER)
     private List<Produto> produtos;
 
     public Evento() {

@@ -40,22 +40,24 @@
             <%= local.getBairro() %> - <%= local.getCidade() %></p>
         <p>Categoria: <%= evento.getCategoria().getNome() %></p>
         
-        <div id="produtos">
+        <div id="produtosAssociados">
         <table>
             <tr>
                 <th>Nome</th>
                 <th>Valor</th>
                 <th>Quantidade</th>
+                <th>
             </tr>
 
-            <c:forEach items="${produtos}" var="produto">
-                <tr>
-                    <td><c:out value="${produto.getNome()}" /></td>
-                    <td><c:out value="${produto.getValor()}" /></td>
-                    <td><c:out value="${produto.getQuantidade()}" /></td>
-                </tr>
-            </c:forEach>
-
+            <% for(Produto produto: produtos) { %>
+            <tr>
+                <td><%= produto.getNome() %></td>
+                <td><%= produto.getValor() %></td>
+                <td><%= produto.getQuantidadeItens() %></td>
+                
+            </tr>
+            <% } %>
+            
         </table>
         </div>
     
