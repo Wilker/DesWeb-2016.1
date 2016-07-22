@@ -29,7 +29,6 @@ public class Evento {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data;
 
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IDLOCAL", nullable = false)
     private Local local;
@@ -63,6 +62,10 @@ public class Evento {
 
     public Categoria getCategoria() {
         return categoria;
+    }
+    
+    public List<Produto> getProdutos() {
+        return produtos;
     }
 //</editor-fold>
 }
