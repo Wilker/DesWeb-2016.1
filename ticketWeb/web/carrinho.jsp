@@ -17,7 +17,7 @@
     <body>
         <%    Carrinho carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
             List<PedidoItem> lista = carrinho.getPedidoItens();
-%>
+        %>
         <h1>Seu Carrinho</h1>
 
         <table>
@@ -45,7 +45,7 @@
                 <td></td>
                 <td></td>
                 <td>Valot Total da Compra</td>
-                <td><%= carrinho.valorTotalCarrinho() %></td>
+                <td><%= carrinho.valorTotalCarrinho()%></td>
             </tr>
 
         </table>
