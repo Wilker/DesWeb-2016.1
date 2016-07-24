@@ -12,12 +12,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Carrinho</title>
     </head>
     <body>
         <%    Carrinho carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
             List<PedidoItem> lista = carrinho.getPedidoItens();
-        %>
+%>
         <h1>Seu Carrinho</h1>
 
         <table>
@@ -29,19 +29,25 @@
                 <th>Quantidade</th>
                 <th>Valor Total</th>
             </tr>
-
             <% for (PedidoItem item : lista) {%>
             <tr>
-
                 <td><%= item.getProduto().getEvento().getDescricao()%></td>
                 <td><%= item.getProduto().getNome()%></td>
                 <td><%= item.getProduto().getEvento().getData()%></td>
                 <td><%= item.getProduto().getValor()%></td>
                 <td><%= item.getQuantidade()%></td>
                 <td><%= item.getProduto().getValor() * item.getQuantidade()%></td>
-
             </tr>
             <% }%>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Valot Total da Compra</td>
+                <td><%= carrinho.valorTotalCarrinho() %></td>
+            </tr>
+
         </table>
 
         <form action="loginUsuario.jsp">
