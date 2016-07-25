@@ -5,7 +5,6 @@
  */
 package model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -42,7 +41,6 @@ public class Pedido
     {
         this.data = data;
         this.usuario = usuario;
-        this.itens = new ArrayList<>();
     }
 
     public int getId()

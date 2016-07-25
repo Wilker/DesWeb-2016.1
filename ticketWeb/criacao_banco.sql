@@ -45,6 +45,14 @@ create table "PEDIDO"
 (
     "ID" int not null primary key generated always as identity (start with 1, increment by 1),
     "DATA" DATE not null,
-    "IDUSUARIO" int not null references USUARIO(ID),
-    "IDPEDIDO" int not null references PEDIDO(ID)
+    "IDUSUARIO" int not null references USUARIO(ID)
 );
+
+create table "PEDIDOITEM"
+(
+    "ID" int not null primary key generated always as identity (start with 1, increment by 1),
+    "IDPRODUTO" int not null references PRODUTO(ID),
+    "QUANTIDADE" int not null,
+    "VALORVENDIDO" double not null,
+    "IDPEDIDO" int not null references PEDIDO(ID)
+)

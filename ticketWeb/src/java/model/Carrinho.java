@@ -60,17 +60,12 @@ public class Carrinho {
         }
     }
     
-    public void savePedidoItens(SessionFactory sf)
+    public void savePedidoItens(Session session)
     {
-        Session session = sf.openSession();
-        Transaction tx = session.beginTransaction();
-        tx.begin();
         for(PedidoItem pi : this.pedidoItens)
         {
             session.saveOrUpdate(pi);
         }
-        tx.commit();
-        session.close();
     }
     
     public double valorTotalCarrinho()
