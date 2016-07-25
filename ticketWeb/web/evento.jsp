@@ -65,7 +65,7 @@
                     <select name="quantidade">
                     <%  int maxIngressos = (produto.getQuantidadeItens() < 4) ? 
                                 produto.getQuantidadeItens() : 4;
-                        for(int i = 0; i <= maxIngressos; i++) { %>
+                        for(int i = 1; i <= maxIngressos; i++) { %>
 
                         <option value="<%= i %>"><%= i %></option>
                         
