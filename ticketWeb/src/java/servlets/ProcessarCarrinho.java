@@ -5,22 +5,14 @@
  */
 package servlets;
 
+import exception.InvalidCreditCardOperationException;
 import exception.QuantidadeIngressosInvalidaException;
 import java.io.IOException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Carrinho;
-import model.Pedido;
-import model.Usuario;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import javax.servlet.http.*;
+import model.*;
+import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 
 /**
@@ -55,6 +47,9 @@ public class ProcessarCarrinho extends HttpServlet
         Usuario usuario = (Usuario) httpSession.getAttribute("usuario");
         Carrinho carrinho = (Carrinho) httpSession.getAttribute("carrinho");
         
+        String numeroCC = request.getParameter("numeroCC");
+        String cvc = request.getParameter("cvc");
+        
         Session session = sf.openSession();
         Transaction tx = session.beginTransaction();
         
@@ -65,21 +60,34 @@ public class ProcessarCarrinho extends HttpServlet
 
             //TODO associar pedidoItems com pedido DONE
             //TODO associar pedido com usuario DONE
-            //TODO associar pagamento com pedido
+            //TODO associar pagamento com pedido DONE
             Pedido pedido = new Pedido(new Date(), usuario);
             session.saveOrUpdate(pedido);
-
+            
+            Pagamento pagamento = new Pagamento(carrinho.valorTotalCarrinho(), pedido);
+            String codFaturamento = APICartao.faturar(pagamento.getValorCobrado(),
+                                                      numeroCC, cvc);
+            pagamento.setCodFaturamento(codFaturamento);
+            session.saveOrUpdate(pagamento);
+            
             carrinho.setPedido(pedido);
             carrinho.savePedidoItens(session);
-
+            
             httpSession.setAttribute("carrinho", new Carrinho());
 
             tx.commit();
-            session.close();
+        }
+        catch(InvalidCreditCardOperationException ex)
+        {
+            //nunca entra aqui pois o cartao eh sempre valido
         }
         catch (QuantidadeIngressosInvalidaException ex)
         {
             tx.rollback();
+        }
+        finally
+        {
+            session.close();
         }
 
     }

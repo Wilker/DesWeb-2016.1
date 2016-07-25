@@ -30,6 +30,9 @@ public class Pedido
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IDUSUARIO")
     private Usuario usuario;
+    
+    @OneToOne(mappedBy = "pedido", fetch = FetchType.LAZY)
+    private Pagamento pagamento;
 
     @OneToMany(mappedBy = "pedido")
     private List<PedidoItem> itens;
@@ -59,6 +62,16 @@ public class Pedido
         return usuario;
     }
 
+    public Pagamento getPagamento()
+    {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento)
+    {
+        this.pagamento = pagamento;
+    }
+
     public List<PedidoItem> getItens()
     {
         return itens;
@@ -71,8 +84,7 @@ public class Pedido
 
     public double getValorTotal()
     {
-        //TODO implementar pegar valor de pagamento
-        return 999.0;
+        return pagamento.getValorCobrado();
     }
 
 }

@@ -22,7 +22,7 @@
     <body>
         <p> Valor total da Compra <%= carrinho.valorTotalCarrinho()%>
         <form action="ProcessarCarrinho" method="post">
-            Número:<input type="text" name="numero" pattern="[0-9]{13,16}">  
+            Número:<input type="text" name="numeroCC" pattern="[0-9]{13,16}">  
             Código de Segurnaça:<input type="text" name="cvc" pattern="[0-9]{3,3}"> <br>   
             <input type ="submit" value="Pagar">
         </form>
