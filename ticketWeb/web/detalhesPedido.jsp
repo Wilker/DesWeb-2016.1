@@ -54,6 +54,13 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td>Cod Faturamento</td>
+                    <td><%= pedido.getPagamento().getCodFaturamento() %></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>Total do Pedido</td>
                     <td><%= pedido.getPagamento().getValorCobrado()%></td>
                 </tr>

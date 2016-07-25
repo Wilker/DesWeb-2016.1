@@ -45,7 +45,7 @@
 
                 <% for (Evento evento : eventos) {%>
                 <tr>
-
+                    <td><img src="<%= evento.getImagemLink() %>" height="100" width="100"></td>
                     <td><%= evento.getDescricao()%></td>
                     <td><%= evento.getData()%></td>
                     <td><%= evento.getLocal().getNome()%></td>
@@ -61,7 +61,8 @@
 
         <div id="meusPedidos">
             <h2>Pedidos Anteriores</h2>
-            <% List<Pedido> lista = s.createCriteria(Pedido.class).list();
+            <% 
+                List<Pedido> lista = s.createCriteria(Pedido.class).list();
             %>
 
 

@@ -19,7 +19,7 @@ create table "LOCAL"
     "LOGRADOURO"  varchar(100)  not null,
     "NUMERO"  int  not null,
     "BAIRRO"  varchar(50)  not null,
-    "CEP"  int  not null,
+    "CEP" varchar(10)  not null,
     "CIDADE"  varchar(50)  not null
 );
 

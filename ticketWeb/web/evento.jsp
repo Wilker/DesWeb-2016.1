@@ -34,6 +34,9 @@
     </head>
     <body>
         <h1><%= evento.getDescricao() %></h1>
+        
+        <img src="<%= evento.getImagemLink() %>">
+        
         <p>Data: <%= evento.getData() %></p>
         <p>Local: <%= local.getNome() %></p>
         <p>Logradouro: <%= local.getLogradouro() %> <%= local.getNumero() %>,
