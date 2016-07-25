@@ -14,7 +14,7 @@ import org.apache.commons.lang3.RandomStringUtils;
  */
 public class APICartao
 {
-    public static String faturar(double valor, String numeroCC, String codSeguranca) throws InvalidCreditCardOperationException
+    public static String faturar(double valor, String nome, String numeroCC, String dataValidade, String codSeguranca) throws InvalidCreditCardOperationException
     {
         return new RandomStringUtils().randomAlphanumeric(32);
     }

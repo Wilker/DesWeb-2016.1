@@ -22,9 +22,9 @@ import org.hibernate.cfg.Configuration;
  */
 public class ProcessarCarrinho extends HttpServlet
 {
-
+    
     private SessionFactory sf;
-
+    
     @Override
     public void init() throws ServletException
     {
@@ -48,7 +48,9 @@ public class ProcessarCarrinho extends HttpServlet
         Usuario usuario = (Usuario) httpSession.getAttribute("usuario");
         Carrinho carrinho = (Carrinho) httpSession.getAttribute("carrinho");
         
+        String nome = request.getParameter("nome");
         String numeroCC = request.getParameter("numeroCC");
+        String dataValidade = request.getParameter("dataValidade");
         String cvc = request.getParameter("cvc");
         
         Session session = sf.openSession();
@@ -66,8 +68,8 @@ public class ProcessarCarrinho extends HttpServlet
             session.save(pedido);
             
             Pagamento pagamento = new Pagamento(carrinho.valorTotalCarrinho(), pedido);
-            String codFaturamento = APICartao.faturar(pagamento.getValorCobrado(),
-                                                      numeroCC, cvc);
+            String codFaturamento = APICartao.faturar(pagamento.getValorCobrado(), nome,
+                    numeroCC, dataValidade, cvc);
             pagamento.setCodFaturamento(codFaturamento);
             session.save(pagamento);
             
@@ -75,10 +77,10 @@ public class ProcessarCarrinho extends HttpServlet
             carrinho.savePedidoItens(session);
             
             httpSession.setAttribute("carrinho", new Carrinho());
-
+            
             tx.commit();
         }
-        catch(InvalidCreditCardOperationException ex)
+        catch (InvalidCreditCardOperationException ex)
         {
             //nunca entra aqui pois o cartao eh sempre valido
         }
@@ -92,9 +94,9 @@ public class ProcessarCarrinho extends HttpServlet
         }
         
         RequestDispatcher dispatcher = getServletContext()
-                                        .getRequestDispatcher("/loginUsuario.jsp");
+                .getRequestDispatcher("/loginUsuario.jsp");
         dispatcher.forward(request, response);
-
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

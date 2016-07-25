@@ -6,16 +6,10 @@
 
 <%@page import="model.Pedido"%>
 <%@page import="model.Carrinho"%>
-<%@page import="org.hibernate.Query"%>
-<%@page import="org.hibernate.Session"%>
-<%@page import="org.hibernate.SessionFactory"%>
+<%@page import="org.hibernate.*"%>
 <%@page import="org.hibernate.cfg.AnnotationConfiguration"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
-<%@page import="model.Usuario"%>
-<%@page import="model.Evento"%>
-<%@page import="model.Local"%>
-<%@page import="model.Categoria"%>
+<%@page import="model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -32,10 +26,8 @@
             conf.configure();
             SessionFactory sf = conf.buildSessionFactory();
             Session s = sf.openSession();
-
-            String eventosQueryString = "select e from Evento e";
-            Query eventosQuery = s.createQuery(eventosQueryString);
-            List<Evento> eventos = (List<Evento>) eventosQuery.list();
+            
+            List<Evento> eventos = s.createCriteria(Evento.class).list();
 
         %>
         <h1>Bem vindo <%= usuario.getNome()%></h1>
