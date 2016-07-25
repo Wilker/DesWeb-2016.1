@@ -16,6 +16,6 @@ public class APICartao
 {
     public static String faturar(double valor, String numeroCC, String codSeguranca) throws InvalidCreditCardOperationException
     {
-        return new RandomStringUtils().random(32);
+        return new RandomStringUtils().randomAlphanumeric(32);
     }
 }

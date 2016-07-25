@@ -69,7 +69,7 @@
 
         <div id="meusPedidos">
             <h2>Pedidos Anteriores</h2>
-            <% List<Pedido> lista = usuario.getPedidos();
+            <% List<Pedido> lista = s.createCriteria(Pedido.class).list();
             %>
 
 
@@ -91,8 +91,6 @@
                 <% }%>
             </table>
         </div>
-
-
 
     </body>
 </html>

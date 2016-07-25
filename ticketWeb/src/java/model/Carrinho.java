@@ -66,14 +66,14 @@ public class Carrinho
     {
         Produto pAux = pi.getProduto();
         pAux.retirarInventario(pi.getQuantidade());
-        session.saveOrUpdate(pAux);
+        session.update(pAux);
     }
 
     public void savePedidoItens(Session session) throws QuantidadeIngressosInvalidaException
     {
         for (PedidoItem pi : this.pedidoItens)
         {
-            session.saveOrUpdate(pi);
+            session.save(pi);
             obterItensInventario(session, pi);
         }
     }

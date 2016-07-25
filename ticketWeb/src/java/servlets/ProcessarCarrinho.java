@@ -9,6 +9,7 @@ import exception.InvalidCreditCardOperationException;
 import exception.QuantidadeIngressosInvalidaException;
 import java.io.IOException;
 import java.util.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import model.*;
@@ -62,13 +63,13 @@ public class ProcessarCarrinho extends HttpServlet
             //TODO associar pedido com usuario DONE
             //TODO associar pagamento com pedido DONE
             Pedido pedido = new Pedido(new Date(), usuario);
-            session.saveOrUpdate(pedido);
+            session.save(pedido);
             
             Pagamento pagamento = new Pagamento(carrinho.valorTotalCarrinho(), pedido);
             String codFaturamento = APICartao.faturar(pagamento.getValorCobrado(),
                                                       numeroCC, cvc);
             pagamento.setCodFaturamento(codFaturamento);
-            session.saveOrUpdate(pagamento);
+            session.save(pagamento);
             
             carrinho.setPedido(pedido);
             carrinho.savePedidoItens(session);
@@ -89,6 +90,10 @@ public class ProcessarCarrinho extends HttpServlet
         {
             session.close();
         }
+        
+        RequestDispatcher dispatcher = getServletContext()
+                                        .getRequestDispatcher("/loginUsuario.jsp");
+        dispatcher.forward(request, response);
 
     }
 
