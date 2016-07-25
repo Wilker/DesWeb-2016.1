@@ -62,7 +62,7 @@
 
                 <% for(Evento evento : eventos) { %>
                 <tr>
-                    <td><img src="<%= evento.getImagemLink() %>" height="100" width="100"></td>
+                    <td><a href="evento.jsp?id=<%= evento.getId()%>"> <img src="<%= evento.getImagemLink() %>" height="100" width="100"></a></td>
                     <td><%= evento.getDescricao()%></td>
                     <td><%= evento.getData()%></td>
                     <td><%= evento.getLocal().getNome()%></td>
