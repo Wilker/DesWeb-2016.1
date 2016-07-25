@@ -27,10 +27,10 @@
         Pedido pedido = (Pedido) query.list().get(0);
         List<PedidoItem> pedidoItens = pedido.getItens();
 
-      
+
+
     %>
     <body>
-
 
         <div id="meusItens">
             <h2>Produtos Comprados</h2>
@@ -44,8 +44,8 @@
                 </tr>
                 <% for (PedidoItem pedItem : pedidoItens) {%>
                 <tr>
-                    <td><%= pedItem.getProduto().getEvento().getDescricao() %></td>
-                    <td><%= pedItem.getProduto().getNome() %></td>
+                    <td><%= pedItem.getProduto().getEvento().getDescricao()%></td>
+                    <td><%= pedItem.getProduto().getNome()%></td>
                     <td><%= pedItem.getValorVendido()%></td>
                     <td><%= pedItem.getQuantidade()%></td>
                     <td><%= pedItem.getQuantidade() * pedItem.getValorVendido()%></td>
