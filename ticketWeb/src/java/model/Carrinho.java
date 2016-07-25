@@ -5,6 +5,7 @@
  */
 package model;
 
+import exception.QuantidadeIngressosInvalidaException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,14 +62,14 @@ public class Carrinho
         }
     }
 
-    private void obterItensInventario(Session session, PedidoItem pi)
+    private void obterItensInventario(Session session, PedidoItem pi) throws QuantidadeIngressosInvalidaException
     {
         Produto pAux = pi.getProduto();
         pAux.retirarInventario(pi.getQuantidade());
         session.saveOrUpdate(pAux);
     }
 
-    public void savePedidoItens(Session session)
+    public void savePedidoItens(Session session) throws QuantidadeIngressosInvalidaException
     {
         for (PedidoItem pi : this.pedidoItens)
         {

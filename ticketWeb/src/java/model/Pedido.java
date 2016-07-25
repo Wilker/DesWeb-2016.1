@@ -15,21 +15,22 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "PEDIDO")
-public class Pedido 
+public class Pedido
 {
+
     @Id
     @GeneratedValue
     @Column(name = "ID")
     private int id;
-    
+
     @Column(name = "DATA")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IDUSUARIO")
     private Usuario usuario;
-    
+
     @OneToMany(mappedBy = "pedido")
     private List<PedidoItem> itens;
 
@@ -62,10 +63,16 @@ public class Pedido
     {
         return itens;
     }
-    
+
     public void adicionarItem(PedidoItem pi)
     {
         this.itens.add(pi);
     }
-    
+
+    public double getValorTotal()
+    {
+        //TODO implementar pegar valor de pagamento
+        return 999.0;
+    }
+
 }

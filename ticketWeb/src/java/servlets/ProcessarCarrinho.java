@@ -5,8 +5,11 @@
  */
 package servlets;
 
+import exception.QuantidadeIngressosInvalidaException;
 import java.io.IOException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,14 +29,16 @@ import org.hibernate.cfg.Configuration;
  */
 public class ProcessarCarrinho extends HttpServlet
 {
+
     private SessionFactory sf;
+
     @Override
     public void init() throws ServletException
     {
         super.init(); //To change body of generated methods, choose Tools | Templates.
         sf = new Configuration().configure().buildSessionFactory();
     }
-    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,27 +54,34 @@ public class ProcessarCarrinho extends HttpServlet
         HttpSession httpSession = request.getSession();
         Usuario usuario = (Usuario) httpSession.getAttribute("usuario");
         Carrinho carrinho = (Carrinho) httpSession.getAttribute("carrinho");
-        //TODO criar pedido DONE
-        //TODO criar pagamento DONE
-        
-        //TODO associar pedidoItems com pedido DONE
-        //TODO associar pedido com usuario DONE
-        //TODO associar pagamento com pedido
         
         Session session = sf.openSession();
         Transaction tx = session.beginTransaction();
         
-        Pedido pedido = new Pedido(new Date(), usuario);
-        session.saveOrUpdate(pedido);
-        
-        carrinho.setPedido(pedido);
-        carrinho.savePedidoItens(session);
-        
-        httpSession.setAttribute("carrinho", new Carrinho());
-        
-        tx.commit();
-        session.close();
-        
+        try
+        {
+            //TODO criar pedido DONE
+            //TODO criar pagamento DONE
+
+            //TODO associar pedidoItems com pedido DONE
+            //TODO associar pedido com usuario DONE
+            //TODO associar pagamento com pedido
+            Pedido pedido = new Pedido(new Date(), usuario);
+            session.saveOrUpdate(pedido);
+
+            carrinho.setPedido(pedido);
+            carrinho.savePedidoItens(session);
+
+            httpSession.setAttribute("carrinho", new Carrinho());
+
+            tx.commit();
+            session.close();
+        }
+        catch (QuantidadeIngressosInvalidaException ex)
+        {
+            tx.rollback();
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
