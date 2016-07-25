@@ -28,7 +28,6 @@
         List<PedidoItem> pedidoItens = pedido.getItens();
 
 
-
     %>
     <body>
 
@@ -51,6 +50,13 @@
                     <td><%= pedItem.getQuantidade() * pedItem.getValorVendido()%></td>
                 </tr>
                 <% }%>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total do Pedido</td>
+                    <td><%= pedido.getPagamento().getValorCobrado()%></td>
+                </tr>
             </table>
         </div>
     </body>
