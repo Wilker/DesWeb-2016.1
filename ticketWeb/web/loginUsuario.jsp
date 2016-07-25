@@ -4,6 +4,8 @@
     Author     : wilker
 --%>
 
+<%@page import="model.Pedido"%>
+<%@page import="model.Carrinho"%>
 <%@page import="org.hibernate.Query"%>
 <%@page import="org.hibernate.Session"%>
 <%@page import="org.hibernate.SessionFactory"%>
@@ -65,8 +67,29 @@
             </form>
         </div>
 
-        <div id="meusEventos">
+        <div id="meusPedidos">
+            <h2>Pedidos Anteriores</h2>
+            <% List<Pedido> lista = usuario.getPedidos();
+            %>
 
+
+            <table>
+                <tr>
+                    <th>Código Pedido</th>
+                    <th>Data</th>
+                    <th>Valor Total</th>
+                </tr>
+
+                <% for (Pedido l : lista) {%>
+                <tr>
+
+                    <td><%= l.getId()%></td>
+                    <td><%= l.getData()%></td>
+                    <td><%= l.getValorTotal()%></td>
+                    <td><a href="detalhesPedido.jsp?id=<%= l.getId()%>">Infos</a></td>
+                </tr>
+                <% }%>
+            </table>
         </div>
 
 
