@@ -6,7 +6,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -50,11 +49,11 @@ public class ProcessarCarrinho extends HttpServlet
         HttpSession httpSession = request.getSession();
         Usuario usuario = (Usuario) httpSession.getAttribute("usuario");
         Carrinho carrinho = (Carrinho) httpSession.getAttribute("carrinho");
-        //TODO criar pedido
-        //TODO criar pagamento
+        //TODO criar pedido DONE
+        //TODO criar pagamento DONE
         
-        //TODO associar pedidoItems com pedido
-        //TODO associar pedido com usuario
+        //TODO associar pedidoItems com pedido DONE
+        //TODO associar pedido com usuario DONE
         //TODO associar pagamento com pedido
         
         Session session = sf.openSession();

@@ -57,6 +57,19 @@ public class Produto
     public int getQuantidadeItens() {
         return quantidadeItens;
     }
+    
+    public boolean retirarInventario(int quantidade)
+    {
+        if(quantidade > 4 || this.quantidadeItens - quantidade <= 0)
+        {
+            return false;
+        }
+        else
+        {
+            this.quantidadeItens -= quantidade;
+            return true;
+        }
+    }
 
     @Override
     public boolean equals(Object obj) {

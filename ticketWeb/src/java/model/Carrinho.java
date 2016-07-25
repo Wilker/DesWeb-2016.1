@@ -9,36 +9,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 /**
  *
  * @author leo
  */
-public class Carrinho {
+public class Carrinho
+{
 
     private List<PedidoItem> pedidoItens;
 
-    public Carrinho() 
+    public Carrinho()
     {
         pedidoItens = new ArrayList<>();
     }
 
-    public List<PedidoItem> getPedidoItens() 
+    public List<PedidoItem> getPedidoItens()
     {
         return pedidoItens;
     }
 
-    public boolean addPedidoItem(PedidoItem pi) 
+    public boolean addPedidoItem(PedidoItem pi)
     {
-        if (pedidoItens.stream().anyMatch(ped -> ped.getProduto().equals(pi.getProduto()))) 
+        if (pedidoItens.stream().anyMatch(ped -> ped.getProduto().equals(pi.getProduto())))
         {
             PedidoItem piAux = pedidoItens.stream()
                     .filter(prod -> prod.getProduto().equals(pi.getProduto()))
                     .collect(Collectors.toList()).get(0);
-            if((pi.getQuantidade() + piAux.getQuantidade()) > 4)
+            if ((pi.getQuantidade() + piAux.getQuantidade()) > 4)
+            {
                 return false;
+            }
             else
             {
                 piAux.adicionarQuantidade(pi.getQuantidade());
@@ -51,23 +52,31 @@ public class Carrinho {
             return true;
         }
     }
-    
+
     public void setPedido(Pedido pedido)
     {
-        for(PedidoItem pi : this.pedidoItens)
+        for (PedidoItem pi : this.pedidoItens)
         {
             pi.setPedido(pedido);
         }
     }
-    
+
+    private void obterItensInventario(Session session, PedidoItem pi)
+    {
+        Produto pAux = pi.getProduto();
+        pAux.retirarInventario(pi.getQuantidade());
+        session.saveOrUpdate(pAux);
+    }
+
     public void savePedidoItens(Session session)
     {
-        for(PedidoItem pi : this.pedidoItens)
+        for (PedidoItem pi : this.pedidoItens)
         {
             session.saveOrUpdate(pi);
+            obterItensInventario(session, pi);
         }
     }
-    
+
     public double valorTotalCarrinho()
     {
         return pedidoItens.stream()

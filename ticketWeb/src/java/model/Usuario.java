@@ -5,10 +5,13 @@
  */
 package model;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -32,6 +35,9 @@ public class Usuario {
 
     @Column(name = "SENHA")
     private String senha;
+    
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<Pedido> pedidos;
 
     public Usuario(String nome, String email, String senha) {
         this.nome = nome;
@@ -56,5 +62,10 @@ public class Usuario {
 
     public String getSenha() {
         return senha;
+    }
+    
+    public List<Pedido> getPedidos()
+    {
+        return this.pedidos;
     }
 }
