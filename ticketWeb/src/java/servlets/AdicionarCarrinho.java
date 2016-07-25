@@ -55,7 +55,7 @@ public class AdicionarCarrinho extends HttpServlet {
             try (PrintWriter out = response.getWriter()) {
                 out.println("<script type=\"text/javascript\">");
                 out.println("alert('4 ingressos por pessoa!');");
-                out.println("location='loginUsuario.jsp';");
+                out.println("history.go(-1);");
                 out.println("</script>");
                 
             }

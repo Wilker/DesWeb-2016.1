@@ -30,6 +30,10 @@ public class PedidoItem
     @Column(name = "VALORVENDIDO")
     private double valorVendido;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IDPEDIDO")
+    private Pedido pedido;
+    
     private PedidoItem(){
     }
     
@@ -60,6 +64,14 @@ public class PedidoItem
     public double getValorVendido() {
         return valorVendido;
     }
-    
-    
+
+    public Pedido getPedido()
+    {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido)
+    {
+        this.pedido = pedido;
+    }
 }

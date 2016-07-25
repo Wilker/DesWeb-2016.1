@@ -6,31 +6,33 @@
 package servlets;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Carrinho;
+import model.Pedido;
 import model.Usuario;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 /**
  *
- * @author leo
+ * @author Leo
  */
-public class CadastrarUsuario extends HttpServlet {
-
-    protected SessionFactory factory;
-
+public class ProcessarCarrinho extends HttpServlet
+{
+    private SessionFactory sf;
     @Override
-    public void init() throws ServletException {
+    public void init() throws ServletException
+    {
         super.init(); //To change body of generated methods, choose Tools | Templates.
-        factory = new Configuration().configure().buildSessionFactory();
+        sf = new Configuration().configure().buildSessionFactory();
     }
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,29 +43,27 @@ public class CadastrarUsuario extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Session session = factory.openSession();
-        Transaction tx = null;
-
-        tx = session.beginTransaction();
-        String nome = request.getParameter("nome");
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        Usuario novoUsuario = new Usuario(nome, email, senha);
+            throws ServletException, IOException
+    {
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        Carrinho carrinho = (Carrinho) request.getSession().getAttribute("carrinho");
+        //TODO criar pedido
+        //TODO criar pagamento
         
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/resultadoCadastro.jsp");
-
-        try {
-            session.save(novoUsuario);
-            tx.commit();
-            request.setAttribute("status", Boolean.TRUE);
-        } catch (Exception ex) {
-            request.setAttribute("status",Boolean.FALSE);
-            tx.rollback();
-        } finally {
-            session.close();
-            dispatcher.forward(request, response);
-        }
+        //TODO associar pedidoItems com pedido
+        //TODO associar pedido com usuario
+        //TODO associar pagamento com pedido
+        
+        Session session = sf.openSession();
+        
+        Pedido pedido = new Pedido(new Date(), usuario);
+        session.saveOrUpdate(pedido);
+        
+        carrinho.setPedido(pedido);
+        carrinho.savePedidoItens(sf);
+        
+        session.close();
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -77,7 +77,8 @@ public class CadastrarUsuario extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -91,7 +92,8 @@ public class CadastrarUsuario extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -101,7 +103,8 @@ public class CadastrarUsuario extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+    public String getServletInfo()
+    {
         return "Short description";
     }// </editor-fold>
 

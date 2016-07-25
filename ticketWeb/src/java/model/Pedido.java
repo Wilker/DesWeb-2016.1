@@ -5,13 +5,17 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 
 /**
  *
  * @author leo
  */
+@Entity
+@Table(name = "PEDIDO")
 public class Pedido 
 {
     @Id
@@ -23,9 +27,47 @@ public class Pedido
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data;
     
-    @OneToOne(fetch = FetchType.LAZY)
-    @Column(name = "IDUSUARIO", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "IDUSUARIO")
     private Usuario usuario;
     
+    @OneToMany(mappedBy = "pedido")
+    private List<PedidoItem> itens;
+
+    public Pedido()
+    {
+    }
+
+    public Pedido(Date data, Usuario usuario)
+    {
+        this.data = data;
+        this.usuario = usuario;
+        this.itens = new ArrayList<>();
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public Date getData()
+    {
+        return data;
+    }
+
+    public Usuario getUsuario()
+    {
+        return usuario;
+    }
+
+    public List<PedidoItem> getItens()
+    {
+        return itens;
+    }
+    
+    public void adicionarItem(PedidoItem pi)
+    {
+        this.itens.add(pi);
+    }
     
 }

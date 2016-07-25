@@ -8,6 +8,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -47,6 +50,27 @@ public class Carrinho {
             pedidoItens.add(pi);
             return true;
         }
+    }
+    
+    public void setPedido(Pedido pedido)
+    {
+        for(PedidoItem pi : this.pedidoItens)
+        {
+            pi.setPedido(pedido);
+        }
+    }
+    
+    public void savePedidoItens(SessionFactory sf)
+    {
+        Session session = sf.openSession();
+        Transaction tx = session.beginTransaction();
+        tx.begin();
+        for(PedidoItem pi : this.pedidoItens)
+        {
+            session.saveOrUpdate(pi);
+        }
+        tx.commit();
+        session.close();
     }
     
     public double valorTotalCarrinho()
