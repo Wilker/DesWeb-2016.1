@@ -39,6 +39,9 @@ public class Evento {
     
     @OneToMany(mappedBy = "evento", fetch = FetchType.LAZY)
     private List<Produto> produtos;
+    
+    @Column(name = "IMAGEMLINK")
+    private String imagemLink;
 
     public Evento() {
     }
@@ -66,6 +69,11 @@ public class Evento {
     
     public List<Produto> getProdutos() {
         return produtos;
+    }
+
+    public String getImagemLink()
+    {
+        return imagemLink;
     }
 //</editor-fold>
 

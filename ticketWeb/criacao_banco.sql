@@ -29,7 +29,8 @@ create table "EVENTO"
     "DESCRICAO"  varchar(50)  not null,
     "DATA" DATE not null,
     "IDLOCAL" int  not null references LOCAL(ID),
-    "IDCATEGORIA" int  not null references CATEGORIA(ID)
+    "IDCATEGORIA" int  not null references CATEGORIA(ID),
+    "IMAGEMLINK" varchar(200) not null
 );
 
 create table "PRODUTO"
