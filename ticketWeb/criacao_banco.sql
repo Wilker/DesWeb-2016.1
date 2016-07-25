@@ -55,4 +55,12 @@ create table "PEDIDOITEM"
     "QUANTIDADE" int not null,
     "VALORVENDIDO" double not null,
     "IDPEDIDO" int not null references PEDIDO(ID)
-)
+);
+
+create table "PAGAMENTO"
+(
+    "ID" int not null primary key generated always as identity (start with 1, increment by 1),
+    "VALORCOBRADO" double not null,
+    "CODFATURAMENTO" varchar(32) not null,
+    "IDPEDIDO" int not null references PEDIDO(ID)
+);
