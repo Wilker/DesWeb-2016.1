@@ -20,14 +20,12 @@ import org.hibernate.cfg.Configuration;
  *
  * @author Leo
  */
-public class ProcessarCarrinho extends HttpServlet
-{
-    
+public class ProcessarCarrinho extends HttpServlet {
+
     private SessionFactory sf;
-    
+
     @Override
-    public void init() throws ServletException
-    {
+    public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
         sf = new Configuration().configure().buildSessionFactory();
     }
@@ -42,22 +40,20 @@ public class ProcessarCarrinho extends HttpServlet
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
         Usuario usuario = (Usuario) httpSession.getAttribute("usuario");
         Carrinho carrinho = (Carrinho) httpSession.getAttribute("carrinho");
-        
+
         String nome = request.getParameter("nome");
         String numeroCC = request.getParameter("numeroCC");
         String dataValidade = request.getParameter("dataValidade");
         String cvc = request.getParameter("cvc");
-        
+
         Session session = sf.openSession();
         Transaction tx = session.beginTransaction();
-        
-        try
-        {
+
+        try {
             //TODO criar pedido DONE
             //TODO criar pagamento DONE
 
@@ -66,37 +62,32 @@ public class ProcessarCarrinho extends HttpServlet
             //TODO associar pagamento com pedido DONE
             Pedido pedido = new Pedido(new Date(), usuario);
             session.save(pedido);
-            
+
             Pagamento pagamento = new Pagamento(carrinho.valorTotalCarrinho(), pedido);
             String codFaturamento = APICartao.faturar(pagamento.getValorCobrado(), nome,
                     numeroCC, dataValidade, cvc);
             pagamento.setCodFaturamento(codFaturamento);
             session.save(pagamento);
-            
+
             carrinho.setPedido(pedido);
             carrinho.savePedidoItens(session);
-            
+
             httpSession.setAttribute("carrinho", new Carrinho());
-            
+            httpSession.setAttribute("nmrPedido", pedido.getId());
+
             tx.commit();
-        }
-        catch (InvalidCreditCardOperationException ex)
-        {
+        } catch (InvalidCreditCardOperationException ex) {
             //nunca entra aqui pois o cartao eh sempre valido
-        }
-        catch (QuantidadeIngressosInvalidaException ex)
-        {
+        } catch (QuantidadeIngressosInvalidaException ex) {
             tx.rollback();
-        }
-        finally
-        {
+        } finally {
             session.close();
         }
-        
+
         RequestDispatcher dispatcher = getServletContext()
-                .getRequestDispatcher("/loginUsuario.jsp");
+                .getRequestDispatcher("/fimCompra.jsp");
         dispatcher.forward(request, response);
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -110,8 +101,7 @@ public class ProcessarCarrinho extends HttpServlet
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -125,8 +115,7 @@ public class ProcessarCarrinho extends HttpServlet
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -136,8 +125,7 @@ public class ProcessarCarrinho extends HttpServlet
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo()
-    {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

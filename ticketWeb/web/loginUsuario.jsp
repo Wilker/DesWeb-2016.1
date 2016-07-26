@@ -28,7 +28,7 @@
 
             table, th, td { border: 1px solid black; padding:8px; text-aling:center;}
 
-
+            #meusPedidos 
         </style>
 
 
@@ -55,80 +55,75 @@
             <h1>Bem vindo <%= usuario.getNome()%></h1>
 
             <table>
-                <tr>
-                    <th></th>
-                    <th>Evento</th>
-                    <th>Data</th>
-                    <th>Local</th>
-                    <th>Categoria</th>
-                </tr>
-            <div id="buscas">
-                <h2>Buscas</h2>
 
-                <form action="FiltrarCidade" method="post">
-                    <select name="cidade" onchange="this.form.submit();">
+                <div id="buscas">
+                    <h2>Buscas</h2>
 
-                        <option selected disabled>Selecione uma cidade</option>
-                        <% for (String cidade : cidades) {%>
-                        <option value="<%= cidade%>"><%= cidade%></option>
-                        <% } %>
+                    <form action="FiltrarCidade" method="post">
+                        <select name="cidade" onchange="this.form.submit();">
 
-                    </select>
-                </form>
-            </div>
+                            <option selected disabled>Selecione uma cidade</option>
+                            <% for (String cidade : cidades) {%>
+                            <option value="<%= cidade%>"><%= cidade%></option>
+                            <% } %>
 
-            <div id="todosEventos">
-                <h2>Eventos disponiveis</h2>
+                        </select>
+                    </form>
+                </div>
 
-                <table>
-                    <tr>
-                        <th>Evento</th>
-                        <th>Data</th>
-                        <th>Local</th>
-                        <th>Categoria</th>
-                    </tr>
+                <div id="todosEventos">
+                    <h2>Eventos disponiveis</h2>
 
-                    <% for (Evento evento : eventos) {%>
-                    <tr>
-                        <td><a href="evento.jsp?id=<%= evento.getId()%>"> <img src="<%= evento.getImagemLink()%>" height="100" width="100"></a></td>
-                        <td><%= evento.getDescricao()%></td>
-                        <td><%= evento.getData()%></td>
-                        <td><%= evento.getLocal().getNome()%></td>
-                        <td><%= evento.getCategoria().getNome()%></td>
-                        <td><a href="evento.jsp?id=<%= evento.getId()%>">Infos</a></td>
-                    </tr>
-                    <% }%>
-                </table>
-                <form action="carrinho.jsp">
-                    <input type="submit" value="Vá para o carrinho">
-                </form>
-            </div>
+                    <table>
+                        <tr>
+                            <th>Evento</th>
+                            <th>Data</th>
+                            <th>Local</th>
+                            <th>Categoria</th>
+                        </tr>
 
-            <div id="meusPedidos">
-                <h2>Pedidos Anteriores</h2>
-                <%
-                    List<Pedido> lista = s.createCriteria(Pedido.class).list();
-                %>
+                        <% for (Evento evento : eventos) {%>
+                        <tr>
+                            <td><a href="evento.jsp?id=<%= evento.getId()%>"> <img src="<%= evento.getImagemLink()%>" height="100" width="100"></a></td>
+                            <td><%= evento.getDescricao()%></td>
+                            <td><%= evento.getData()%></td>
+                            <td><%= evento.getLocal().getNome()%></td>
+                            <td><%= evento.getCategoria().getNome()%></td>
+                            <td><a href="evento.jsp?id=<%= evento.getId()%>">Infos</a></td>
+                        </tr>
+                        <% }%>
+                    </table>
+                    <form action="carrinho.jsp">
+                        <input type="submit" value="Vá para o carrinho">
+                    </form>
 
 
-                <table>
-                    <tr>
-                        <th>Código Pedido</th>
-                        <th>Data</th>
-                        <th>Valor Total</th>
-                    </tr>
+                    <div id="meusPedidos">
+                        <h2>Pedidos Anteriores</h2>
+                        <%
+                            List<Pedido> lista = s.createCriteria(Pedido.class).list();
+                        %>
 
-                    <% for (Pedido l : lista) {%>
-                    <tr>
 
-                        <td><%= l.getId()%></td>
-                        <td><%= l.getData()%></td>
-                        <td><%= l.getValorTotal()%></td>
-                        <td><a href="detalhesPedido.jsp?id=<%= l.getId()%>">Infos</a></td>
-                    </tr>
-                    <% }%>
-                </table>
-            </div>
-        </div>
-    </body>
-</html>
+                        <table>
+                            <tr>
+                                <th>Código Pedido</th>
+                                <th>Data</th>
+                                <th>Valor Total</th>
+                            </tr>
+
+                            <% for (Pedido l : lista) {%>
+                            <tr>
+
+                                <td><%= l.getId()%></td>
+                                <td><%= l.getData()%></td>
+                                <td><%= l.getValorTotal()%></td>
+                                <td><a href="detalhesPedido.jsp?id=<%= l.getId()%>">Infos</a></td>
+                            </tr>
+                            <% }%>
+                        </table>
+                    </div>
+                </div>
+
+                </body>
+                </html>

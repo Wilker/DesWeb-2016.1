@@ -14,6 +14,14 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Detalhes Pedido</title>
+        
+        <style>
+            *, html, body { font-family: Verdana; font-size:15px;  }
+            #meusItens { width:400px; height:400px; position:absolute; top:50%; left:50%; margin-top:-200px; margin-left:-200px;}
+            label {width:80px; display:block; }
+            h1{font-size:24px; }
+        </style>
+        
     </head>
     <%
         AnnotationConfiguration conf = new AnnotationConfiguration();
