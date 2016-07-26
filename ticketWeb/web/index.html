@@ -1,25 +1,35 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Tickets Online</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1>Tickets Online</h1>
-        <div id="Login">
-            <p>Logar no sistema</p>
-            <form action="LoginUsuario" method="post">
-                Login <input type="text" name="login"> <br>
-                Senha <input type="password" name="passwd"><br>
-                <input type ="submit" value="login">
-            </form>
-            <a href="cadastro.html">cadastre-se</a>
-        </div>
-    </body>
-</html>
+
+    <!DOCTYPE html>
+    <!--
+    To change this license header, choose License Headers in Project Properties.
+    To change this template file, choose Tools | Templates
+    and open the template in the editor.
+    -->
+    <html>
+        <head>
+            <title>Tickets Online</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+	*, html, body { font-family: Verdana; font-size:15px;  }
+	#Login { width:400px; height:400px; position:absolute; top:50%; left:50%; margin-top:-200px; margin-left:-200px;}
+	label {width:80px; display:block; }
+	h1{font-size:24px; }
+</style>
+        </head>
+        <body>
+            <div id="Login">
+              <h1>Tickets Online</h1>
+                <p>Logar no sistema</p>
+                <form action="LoginUsuario" method="post">
+                    <label>Login</label> 
+                        <input type="text" name="login"> <br/><br/>
+                    <label>Senha</label> 
+                          <input type="password" name="passwd"><br/><br/>
+                    <input type ="submit" value="login">
+                </form>
+		<br/>
+                <a href="cadastro.html">cadastre-se</a>
+            </div>
+        </body>
+    </html>

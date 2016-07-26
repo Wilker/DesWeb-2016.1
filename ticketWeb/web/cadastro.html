@@ -9,18 +9,28 @@ and open the template in the editor.
         <title>Tickets Online</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            *, html, body { font-family: Verdana; font-size:15px;  }
+            #cadastro { width:400px; height:400px; position:absolute; top:50%; left:50%; margin-top:-200px; margin-left:-200px;}
+            label {width:80px; display:block; }
+            h1{font-size:24px; }
+
+        </style>
     </head>
 
-
     <body>
-        <div>
+        <div id="cadastro">
             <h1>Cadastro de Usuário</h1>
             <p>Insira seus dados para cadastro</p>
 
             <form action="CadastrarUsuario" method="post">
-                Nome:<input type="text" name="nome" value="Nome" required> <br>   
-                Email:<input type="email" name="email" value="email@email.com.br" required> <br>   
-                Senha:<input type="password" name="senha" required> <br>   
+                <label>Nome</label>
+                <input type="text" name="nome" value="Nome" required> <br><br>    
+                <label>Email</label>
+                <input type="email" name="email" value="email@email.com.br" required> <br><br>    
+                <label>Senha</label>
+                <input type="password" name="senha" required> <br><br>    
                 <input type ="submit" value="cadastro">
             </form>
         </div>
