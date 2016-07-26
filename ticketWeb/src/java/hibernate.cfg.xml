@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.DerbyDialect</property>
-    <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
-    <property name="hibernate.connection.url">jdbc:derby://localhost:1527/ticket</property>
-    <property name="hibernate.connection.username">ticket</property>
-    <property name="hibernate.connection.password">ticket</property>
-    <mapping class="model.Usuario"/>
-    <mapping class="model.Local"/>
-    <mapping class="model.Evento"/>
-    <mapping class="model.Categoria"/>
-    <mapping class="model.Pedido"/>
-    <mapping class="model.Produto"/>
-    <mapping class="model.PedidoItem"/>
-    <mapping class="model.Pagamento"/>
-  </session-factory>
+    <session-factory>
+        <property name="hibernate.enable_lazy_load_no_trans">true</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.DerbyDialect</property>
+        <property name="hibernate.connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
+        <property name="hibernate.connection.url">jdbc:derby://localhost:1527/ticket</property>
+        <property name="hibernate.connection.username">ticket</property>
+        <property name="hibernate.connection.password">ticket</property>
+        <mapping class="model.Usuario"/>
+        <mapping class="model.Local"/>
+        <mapping class="model.Evento"/>
+        <mapping class="model.Categoria"/>
+        <mapping class="model.Pedido"/>
+        <mapping class="model.Produto"/>
+        <mapping class="model.PedidoItem"/>
+        <mapping class="model.Pagamento"/>
+    </session-factory>
 </hibernate-configuration>
