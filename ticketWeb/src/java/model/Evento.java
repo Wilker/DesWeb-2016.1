@@ -29,7 +29,7 @@ public class Evento {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date data;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IDLOCAL", nullable = false)
     private Local local;
 

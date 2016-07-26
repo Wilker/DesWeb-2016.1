@@ -5,10 +5,13 @@
  */
 package model;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -42,6 +45,9 @@ public class Local
 
     @Column(name = "CIDADE")
     private String cidade;
+    
+    @OneToMany(mappedBy = "local", fetch = FetchType.EAGER)
+    private List<Evento> eventos;
 
     public Local() {
     }
@@ -79,6 +85,11 @@ public class Local
 
     public String getCidade() {
         return cidade;
+    }
+
+    public List<Evento> getEventos()
+    {
+        return eventos;
     }
 }
 // </editor-fold>

@@ -20,6 +20,10 @@
         <servlet-name>ProcessarCarrinho</servlet-name>
         <servlet-class>servlets.ProcessarCarrinho</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FiltrarCidade</servlet-name>
+        <servlet-class>servlets.FiltrarCidade</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ticket</servlet-name>
         <url-pattern>/ticket</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>ProcessarCarrinho</servlet-name>
         <url-pattern>/ProcessarCarrinho</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FiltrarCidade</servlet-name>
+        <url-pattern>/FiltrarCidade</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

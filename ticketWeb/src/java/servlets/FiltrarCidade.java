@@ -6,30 +6,24 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import model.Usuario;
+import javax.servlet.http.*;
+import model.Evento;
+import model.Local;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
  *
  * @author leo
  */
-public class CadastrarUsuario extends HttpServlet {
-
-    private SessionFactory factory;
-
-    @Override
-    public void init() throws ServletException {
-        super.init(); //To change body of generated methods, choose Tools | Templates.
-        factory = new Configuration().configure().buildSessionFactory();
-    }
+public class FiltrarCidade extends HttpServlet
+{
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,29 +35,33 @@ public class CadastrarUsuario extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Session session = factory.openSession();
-        Transaction tx = null;
+            throws ServletException, IOException
+    {
+        String cidade = (String) request.getParameter("cidade");
 
-        tx = session.beginTransaction();
-        String nome = request.getParameter("nome");
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
-        Usuario novoUsuario = new Usuario(nome, email, senha);
-        
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/resultadoCadastro.jsp");
+        AnnotationConfiguration conf = new AnnotationConfiguration();
+        conf.configure();
+        SessionFactory sf = conf.buildSessionFactory();
+        Session s = sf.openSession();
 
-        try {
-            session.save(novoUsuario);
-            tx.commit();
-            request.setAttribute("status", Boolean.TRUE);
-        } catch (Exception ex) {
-            request.setAttribute("status",Boolean.FALSE);
-            tx.rollback();
-        } finally {
-            session.close();
-            dispatcher.forward(request, response);
+        String hql = "select local from Local local where local.cidade = :cidade";
+        Query query = s.createQuery(hql);
+        query.setParameter("cidade", cidade);
+        List<Local> locais = (List<Local>) query.list();
+
+        List<Evento> eventos = new ArrayList<>();
+        for (Local local : locais)
+        {
+            eventos.addAll(local.getEventos());
         }
+
+        s.close();
+
+        request.setAttribute("eventos", eventos);
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/filtrarCidade.jsp");
+        dispatcher.forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -77,7 +75,8 @@ public class CadastrarUsuario extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -91,7 +90,8 @@ public class CadastrarUsuario extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException
+    {
         processRequest(request, response);
     }
 
@@ -101,7 +101,8 @@ public class CadastrarUsuario extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+    public String getServletInfo()
+    {
         return "Short description";
     }// </editor-fold>
 

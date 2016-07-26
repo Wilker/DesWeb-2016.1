@@ -28,7 +28,6 @@
 
             List<Evento> eventos = s.createCriteria(Evento.class).list();
             
-            
             Criteria cidadesCriteria = s.createCriteria(Local.class);
             List<String> cidades = (List<String>) cidadesCriteria.setProjection(Projections.distinct(Projections.property("cidade"))).list();
         %>
@@ -54,6 +53,7 @@
 
             <table>
                 <tr>
+                    <th></th>
                     <th>Evento</th>
                     <th>Data</th>
                     <th>Local</th>

@@ -4,11 +4,8 @@
     Author     : leo
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
-<%@page import="model.Produto"%>
-<%@page import="model.Local"%>
-<%@page import="model.Evento"%>
+<%@page import="model.*"%>
 <%@page import="org.hibernate.cfg.AnnotationConfiguration"%>
 <%@page import="org.hibernate.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
