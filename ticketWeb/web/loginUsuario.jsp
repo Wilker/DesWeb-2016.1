@@ -102,7 +102,7 @@
                     <div id="meusPedidos">
                         <h2>Pedidos Anteriores</h2>
                         <%
-                            List<Pedido> lista = s.createCriteria(Pedido.class).list();
+                            List<Pedido> lista = usuario.getPedidos();
                         %>
 
 
