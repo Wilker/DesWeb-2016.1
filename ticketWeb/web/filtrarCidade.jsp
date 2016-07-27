@@ -20,7 +20,8 @@
         <style>
             *, html, body { font-family: Verdana; font-size:15px;  }
             label {width:160px; display:block; margin-top:10px; }
-            h1{font-size:24px; }
+            h1{font-size:24px;}
+            #titulo{margin-left: 40%}
             #eventos{width:600px; height:600px; position:absolute; top:40%; left:50%; margin-top:-300px; margin-left:-300px;}
             table { border-collapse: collapse; width:100%;}
             table, th, td { border: 1px solid black; padding:8px; text-aling:center;}

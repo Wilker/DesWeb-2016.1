@@ -24,6 +24,10 @@
         <servlet-name>FiltrarCidade</servlet-name>
         <servlet-class>servlets.FiltrarCidade</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EncerrarSessao</servlet-name>
+        <servlet-class>servlets.EncerrarSessao</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ticket</servlet-name>
         <url-pattern>/ticket</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>FiltrarCidade</servlet-name>
         <url-pattern>/FiltrarCidade</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EncerrarSessao</servlet-name>
+        <url-pattern>/EncerrarSessao</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

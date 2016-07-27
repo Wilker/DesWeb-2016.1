@@ -52,7 +52,9 @@
 
         <div id="container">
             <h1>Bem vindo <%= usuario.getNome()%></h1>
-
+            <form action="EncerrarSessao">
+                <input type="submit" value="Logout">
+            </form>
             <table>
 
                 <div id="buscas">
