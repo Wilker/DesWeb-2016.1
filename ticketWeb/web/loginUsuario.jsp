@@ -38,7 +38,6 @@
 
         <%
             Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-            usuario.getNome();
 
             AnnotationConfiguration conf = new AnnotationConfiguration();
             conf.configure();
