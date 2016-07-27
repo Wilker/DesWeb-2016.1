@@ -37,10 +37,10 @@ INSERT INTO TICKET."LOCAL" (NOME, LOGRADOURO, NUMERO, BAIRRO, CEP, CIDADE)
 	VALUES ('Apoteose', 'Av. Presidente Vargas', 123, 'Centro', '21212121', 'Rio de Janeiro');
 
 INSERT INTO TICKET.EVENTO (DESCRICAO, "DATA", IDLOCAL, IDCATEGORIA, IMAGEMLINK) 
-	VALUES ('Judas Priest', '2016-07-30', 3, 1, '');
+	VALUES ('Judas Priest', '2016-07-30', 3, 1, 'http://www.judaspriest.com/images/2014/Judas-Priest-Logo-Black-800x462.jpg');
 
 INSERT INTO TICKET.PRODUTO (NOME, IDEVENTO, VALOR, QUANTIDADE) 
-	VALUES ('Pista', 4, 200.0, 2);
+	VALUES ('Pista', 3, 200.0, 2);
 
 INSERT INTO TICKET.PRODUTO (NOME, IDEVENTO, VALOR, QUANTIDADE) 
-	VALUES ('Arquibancada', 4, 75.0, 25);
+	VALUES ('Arquibancada', 3, 75.0, 25);

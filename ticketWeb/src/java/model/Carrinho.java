@@ -8,6 +8,7 @@ package model;
 import exception.QuantidadeIngressosInvalidaException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.hibernate.Session;
 
@@ -32,22 +33,21 @@ public class Carrinho
 
     public boolean addPedidoItem(PedidoItem pi)
     {
-        if (pedidoItens.stream().anyMatch(ped -> ped.getProduto().equals(pi.getProduto())))
+        Optional<Integer> quantidadeCarrinho = pedidoItens.stream().map(p -> p.getQuantidade()).reduce(Integer::sum);
+
+        if (quantidadeCarrinho.isPresent() && quantidadeCarrinho.get() + pi.getQuantidade() > 4)
+        {
+            return false;
+        } else if (pedidoItens.stream().anyMatch(ped -> ped.getProduto().equals(pi.getProduto())))
         {
             PedidoItem piAux = pedidoItens.stream()
                     .filter(prod -> prod.getProduto().equals(pi.getProduto()))
                     .collect(Collectors.toList()).get(0);
-            if ((pi.getQuantidade() + piAux.getQuantidade()) > 4)
-            {
-                return false;
-            }
-            else
-            {
-                piAux.adicionarQuantidade(pi.getQuantidade());
-                return true;
-            }
-        }
-        else
+
+            piAux.adicionarQuantidade(pi.getQuantidade());
+            return true;
+
+        } else
         {
             pedidoItens.add(pi);
             return true;
