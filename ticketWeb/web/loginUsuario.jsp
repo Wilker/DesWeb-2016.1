@@ -4,6 +4,7 @@
     Author     : wilker
 --%>
 
+<%@page import="org.hibernate.criterion.Restrictions"%>
 <%
 response.setHeader("Pragma", "No-cache");
 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -108,7 +109,7 @@ response.setDateHeader("Expires", -1);
                     <div id="meusPedidos">
                         <h2>Pedidos Anteriores</h2>
                         <%
-                            List<Pedido> lista = usuario.getPedidos();
+                            List<Pedido> lista = s.createCriteria(Pedido.class).add(Restrictions.eq("usuario", usuario)).list();
                         %>
 
 
