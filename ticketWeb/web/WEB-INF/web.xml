@@ -28,6 +28,10 @@
         <servlet-name>EncerrarSessao</servlet-name>
         <servlet-class>servlets.EncerrarSessao</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FinalizaCompra</servlet-name>
+        <servlet-class>servlets.FinalizaCompra</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ticket</servlet-name>
         <url-pattern>/ticket</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>EncerrarSessao</servlet-name>
         <url-pattern>/EncerrarSessao</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FinalizaCompra</servlet-name>
+        <url-pattern>/FinalizaCompra</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

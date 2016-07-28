@@ -20,7 +20,7 @@ public class PedidoItem
     @Column(name = "ID")
     private int id;
     
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IDPRODUTO", nullable = false)
     private Produto produto;
     
