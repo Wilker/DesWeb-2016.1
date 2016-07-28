@@ -4,6 +4,12 @@
     Author     : wilker
 --%>
 
+<%
+response.setHeader("Pragma", "No-cache");
+response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+response.setDateHeader("Expires", -1);
+%>
+
 <%@page import="org.hibernate.criterion.Projections"%>
 <%@page import="org.hibernate.*"%>
 <%@page import="org.hibernate.cfg.AnnotationConfiguration"%>
