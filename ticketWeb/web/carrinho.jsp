@@ -66,7 +66,7 @@
                 <input type="submit" value="Continue Compando">
             </form>
 
-            <form action="finalizaCompra.jsp">
+            <form action="FinalizaCompra">
                 <input type="submit" value="Finalizar Compra">
             </form>
 

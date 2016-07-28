@@ -4,6 +4,7 @@
     Author     : leo
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="model.*"%>
 <%@page import="org.hibernate.cfg.AnnotationConfiguration"%>
@@ -23,6 +24,27 @@
     Evento evento = (Evento) query.list().get(0);
     Local local = evento.getLocal();
     List<Produto> produtos = evento.getProdutos();
+
+    HttpSession httpSession = request.getSession();
+    Usuario usuario = (Usuario) httpSession.getAttribute("usuario");
+
+    List<Pedido> pedidosAnteriores = usuario.getPedidos(); //vai no banco e lista todos os pedidos anteriores
+
+    List<PedidoItem> anteriores = new ArrayList<PedidoItem>();
+
+    for (int i = 0; i < pedidosAnteriores.size(); i++) {
+
+        //aqui tnho lista com todos os pedidos itens anteriores
+        List<PedidoItem> produtosAnteriores = pedidosAnteriores.get(i).getItens();
+
+        for (PedidoItem pedItem : produtosAnteriores) {
+            if (pedItem.getProduto().getEvento().equals(evento)) {
+                anteriores.add(pedItem);
+            }//neste ponto já tenho tods os pedidos itens anteriores deste evento. 
+        }
+    }
+
+//calcular agora o ingresso máximo para cada tipo de ingresso
 %>
 <html>
     <head>
@@ -72,9 +94,22 @@
                         <input type="hidden" name="idProduto" value="<%= produto.getId()%>" />
                         <td>
                             <select name="quantidade">
-                                <%  int maxIngressos = (produto.getQuantidadeItens() < 4)
-                                            ? produto.getQuantidadeItens() : 4;
-                                    for (int i = 1; i <= maxIngressos; i++) {%>
+                                <%
+                                    int totalAnterior = 0;
+                                    for (int i = 0; i < anteriores.size(); i++) {
+                                        if (anteriores.get(i).getProduto().getEvento().equals(evento)) {
+                                            totalAnterior += anteriores.get(i).getQuantidade();
+                                        }
+                                    }
+                                    int maxIngressos = 0;
+                                    if (totalAnterior < 4) {
+                                        if (totalAnterior == 0) {
+                                            maxIngressos = (produto.getQuantidadeItens() < 4) ? produto.getQuantidadeItens() : 4;
+                                        } else {
+                                            maxIngressos = (produto.getQuantidadeItens() < 4) ? produto.getQuantidadeItens() : 4 - totalAnterior;
+                                        }
+                                    }
+                                    for (int i = 0; i <= maxIngressos; i++) {%>
 
                                 <option value="<%= i%>"><%= i%></option>
 

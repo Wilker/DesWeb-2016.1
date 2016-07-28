@@ -7,17 +7,19 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import model.*;
-import org.hibernate.*;
-import org.hibernate.cfg.AnnotationConfiguration;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Carrinho;
 
 /**
  *
- * @author leo
+ * @author wilker
  */
-public class AdicionarCarrinho extends HttpServlet {
+public class FinalizaCompra extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,41 +32,16 @@ public class AdicionarCarrinho extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
         HttpSession httpSession = request.getSession();
         Carrinho carrinho = (Carrinho) httpSession.getAttribute("carrinho");
 
-        Produto produto = null;
-        int idProduto = Integer.parseInt(request.getParameter("idProduto"));
-        int quantidade = Integer.parseInt(request.getParameter("quantidade"));
-
-        try {
-            AnnotationConfiguration conf = new AnnotationConfiguration();
-            conf.configure();
-            SessionFactory sf = conf.buildSessionFactory();
-            Session session = sf.openSession();
-            produto = (Produto) session.get(model.Produto.class, idProduto);
-            session.close();
-        } catch (Exception ex) {
-
-        }
-        if (quantidade > 0) {
-            PedidoItem pi = new PedidoItem(produto, quantidade, produto.getValor());
-
-            if (!carrinho.addPedidoItem(pi)) {
-                response.setContentType("text/html;charset=UTF-8");
-                try (PrintWriter out = response.getWriter()) {
-                    out.println("<script type=\"text/javascript\">");
-                    out.println("alert('Limite de 4 ingressos!');");
-                    out.println("history.go(-1);");
-                    out.println("</script>");
-
-                }
-            } else {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginUsuario.jsp");
-                dispatcher.forward(request, response);
-            }
-        } else {
+        if (carrinho.getPedidoItens().isEmpty()) {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/loginUsuario.jsp");
+            dispatcher.forward(request, response);
+        } else {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/finalizaCompra.jsp");
             dispatcher.forward(request, response);
         }
     }
